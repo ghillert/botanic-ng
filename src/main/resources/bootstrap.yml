@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: botanic-ng
+---
+spring:
+  profiles: cloud
+  platform:
+    config:
+      uri: ${vcap.services.${PREFIX:}configserver.credentials.uri:http://localhost:8888}
+      

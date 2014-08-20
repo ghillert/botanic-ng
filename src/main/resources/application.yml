@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: botanic-ng
+
+server:
+  port: 9000
+
+logging:
+  level:
+    org.springframework: INFO

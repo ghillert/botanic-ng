@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: botanic-ng
+---
+spring:
+  profiles: cloud
