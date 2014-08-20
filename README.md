@@ -1,5 +1,9 @@
-Botanic NG - Angular JS Sample Application
-==========================================
+Botanic NG
+==========
+
+**Angular JS Sample Application**
+
+[![Build Status](https://travis-ci.org/ghillert/botanic-ng.svg)](https://travis-ci.org/ghillert/botanic-ng)
 
 ## How to Run
 
