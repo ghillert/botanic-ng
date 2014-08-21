@@ -57,44 +57,95 @@
 					</p>
 				</section>
 
-<!-- 				<section>
+				<section>
+					<h2>Goals</h2>
+					<ul>
+						<li>AngularJS Overview</li>
+						<li>Build and Deployment</li>
+						<li>Integration with Spring</li>
+						<li>Testing</li>
+						<li>Modularization</li>
+					</ul>
+					<aside class="notes">
+					</aside>
+				</section>
+				
+				<section>
 					<h2>Introduction</h2>
 					<ul>
-						<li>Web developer since 2005 (Struts 1+2, Spring MVC, GWT, Flex)</li>
+						<li>(Java) Web developer since 2005</li>
+						<li>Struts 1+2, Spring MVC, GWT, Flex</li>
 						<li>Spring Integration + XD committer</li>
+						<li>AngularJS since Jan 2014</li>
 					</ul>
-					<aside class="notes">
-					</aside>
-				</section> -->
-
-<!-- 				<section>
-					<h2>Audience</h2>
-					<ul>
-						<li>Are you using AngularJS?</li>
-						<li>Are you using any other SPA Framework?</li>
-						<li>JQuery?</li>
-						<li>Just Spring MVC?</li>
-					</ul>
-					<aside class="notes">
-					</aside>
-				</section> -->
-
-<!-- 				<section>
-					<h2>What are SPAs?</h2>
-					<p>???????</p>
-					<aside class="notes">
-					</aside>
-				</section> -->
-
-				<section>
-					<h2>JavaScript WTF</h2>
-					<p><a href="http://wtfjs.com/">http://wtfjs.com/</a></p>
-					<p><a href="http://stackoverflow.com/questions/280712/javascript-unicode-regexes">Regex fun</a></p>
 					<aside class="notes">
 					</aside>
 				</section>
 
 				<section>
+					<h2>Audience - What do you use?</h2>
+					<ul>
+						<li>AngularJS?</li>
+						<li>Backbone?</li>
+						<li>JQuery?</li>
+						<li>Are you using any other SPA Framework?</li>
+						<li>Spring MVC?</li>
+						<li>Spring Boot?</li>
+					</ul>
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h2>What are SPAs?</h2>
+					<blockquote>A single-page application (SPA), also known as single-page
+					interface (SPI), is a web application or web site that fits on a single web
+					page with the goal of providing a more fluid user experience akin to a desktop application.</blockquote>
+					<p><a href="http://en.wikipedia.org/wiki/Single-page_application">Wikipedia</a></p>
+					<aside class="notes">
+					</aside>
+				</section>
+				<section>
+					<h2>What are SPAs?</h2>
+					<img src="images/spa_diagram.png"/>
+					<aside class="notes">
+					</aside>
+				</section>
+				<section>
+					<h2>JavaScript WTF 1/2</h2>
+					<p><a href="http://wtfjs.com/">http://wtfjs.com/</a></p>
+					<pre><code data-trim>
+parseInt('crap');     // NaN
+parseInt('crap', 16); // 12
+					</code></pre>
+					<p><script type="text/javascript">document.write(parseInt('crap'));</script></p>
+					<p><script type="text/javascript">document.write(parseInt('crap', 16));</script></p>
+					<aside class="notes">
+					</aside>
+				</section>
+				<section>
+					<h2>JavaScript WTF 2/2</h2>
+					<p><a href="http://wtfjs.com/">http://wtfjs.com/</a></p>
+					<pre><code data-trim>
+(2 + "3");  // 23
+(2 + +"3"); // 5
+(+"");      // 0
+					</code></pre>
+					<p><script type="text/javascript">document.write((2 + "3"));</script></p>
+					<p><script type="text/javascript">document.write((2 + +"3"));</script></p>
+					<p><script type="text/javascript">document.write((+""));</script></p>
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<img src="images/js-the-good-parts.png" title="JavaScript: The Good Parts"/>
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<img src="images/backbonejs-logo.png" title="backbone logo"/>
 					<h2>From Backbone to Angular</h2>
 					<p>Too many moving parts, choices</p>
 					<p>Boilerplate Code</p>
@@ -124,6 +175,27 @@
 				</section>
 
 				<section>
+					<h2>¡Hola!</h2>
+					<pre><code class="liveCoding"contenteditable spellcheck="false">
+&lt;div ng-app ng-init=&quot;firstName=&#x27;Angular&#x27;;lastName=&#x27;rocks&#x27;&quot;&gt;
+  &lt;div&gt;
+    First Name: &lt;input type=&quot;text&quot; ng-model=&quot;firstName&quot;&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    Last Name: &lt;input type=&quot;text&quot; ng-model=&quot;lastName&quot;&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;b&gt;Complete Name:&lt;/b&gt; {{firstName + &#x27; &#x27; + lastName | uppercase}}
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+					<p><a target="_blank" href="http://plnkr.co/edit/LoloOqLdQlbnCVy913hl">Demo</a></p>
+					<aside class="notes">
+					</aside>
+				</section>
+
+				
+				<section>
 					<h2>Model</h2>
 					<aside class="notes">
 					</aside>
@@ -139,6 +211,16 @@
 
 				<section>
 					<h2>Controller</h2>
+					
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h2>Dependency Injection</h2>
+					<p>Use array notation</p>
+					<p>Or use <a target="_blank" href="https://github.com/btford/ngmin">ngmin</a></p>
+					<p>grunt-ngmin, gulp-ngmin</p>
 					<aside class="notes">
 					</aside>
 				</section>
@@ -167,9 +249,171 @@
 				</section>
 
 				<section>
-					<h2>Modules</h2>
-					<p></p>
+					<h1>Build and Deployment</h1>
+				</section>
+				
+				<section>
+					<h2>Strategies - Java Tooling</h2>
+					<ul>
+						<li><a href="https://code.google.com/p/wro4j/">Wro4j</a></li>
+						<li><a href="https://jawr.java.net/">Jawr</a></li>
+						<li>Spring 4.1 (SPR-10310, SPR-10933)</li>
+						<li>See <a href="https://spring.io/blog/2014/07/24/spring-framework-4-1-handling-static-web-resources">Blog Post</a></li>
+						<li><a href="http://www.webjars.org/">WebJars</a></li>
+					</ul>
 					<aside class="notes">
+					</aside>
+				</section>
+				
+				<section>
+					<h2>Strategies - JavaScript Tooling</h2>
+					<ul>
+						<li>Node (Npm)</li>
+						<li>Grunt (Gulp)</li>
+						<li>Bower</li>
+						<li>Yeoman (angular-seed)</li>
+					</ul>
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h2>Make Maven and Gradle Grunt</h2>
+					<ul>
+						<li>Plugins exist for Gradle and Maven</li>
+						<li>Spring XD uses Gradle integration</li>
+						<li>botanic-ng uses Maven integration</li>
+						<li>Spring Boot plus Maven Frontend Plugin</li>
+					</ul>
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h1>Integration with Spring (Boot)</h1>
+					<img src="images/spring-boot-logo.png"/>
+				</section>
+				
+				<section>
+					<h2>Hello World Fits into Tweet</h2>
+					<pre><code class="liveCoding" contenteditable
+					spellcheck="false">@Controller
+class ThisWillActuallyRun {
+	@RequestMapping("/")
+	@ResponseBody
+	String home() {
+		"Hello World!"
+	}
+}</code></pre>
+				</section>
+
+				<section>
+					<h2>Rapid Prototyping</h2>
+					<ul>
+						<li>Spring Scripts (<a target="_blank" href="https://github.com/spring-projects/spring-boot/tree/master/spring-boot-cli/samples">Samples</a>)</li>
+						<li>Starter POMs</li>
+						<li>Über-Jars support (can create WARs also)</li>
+						<li>Maven + Gradle Plugins</li>
+						<li>AutoConfiguration support</li>
+					</ul>
+					<aside class="notes">
+					http://spring.io/blog/2013/12/19/serving-static-web-content-with-spring-boot
+					https://spring.io/blog/2013/08/06/spring-boot-simplifying-spring-for-everyone
+					</aside>
+				</section>
+
+				<section>
+					<h2>Main is back</h2>
+					<pre><code class="liveCoding" contenteditable
+					spellcheck="false">@EnableAutoConfiguration @ComponentScan @EnableScheduling
+public class MainApp extends RepositoryRestMvcConfiguration {
+	@Override
+	protected void configureRepositoryRestConfiguration(
+		RepositoryRestConfiguration config) {
+		config.exposeIdsFor(Image.class, Garden.class, Plant.class);
+		config.setBaseUri(URI.create("/api"));
+	}
+	public static void main(String[] args) {
+		final ConfigurableApplicationContext context =
+				SpringApplication.run(MainApp.class, args);
+		...
+	}
+	@Bean
+	MultipartConfigElement multipartConfigElement() { ... } ...
+}</code></pre>
+				</section>
+				
+				<section>
+					<h2>Serving Static Content</h2>
+					<p>/META-INF/resources/</p>
+					<p>/resources/</p>
+					<p>/static/</p>
+					<p>/public/</p>
+					<p>Also supports WebJars</p>
+				</section>
+
+				<section>
+					<h2>Make Boot Modules (UI) Pluggable</h2>
+					<ul>
+						<li></li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>Demo Backend</h2>
+				</section>
+				
+				<section>
+					<h1>Modularization</h1>
+				</section>
+
+				<section>
+					<h2>Modularization Now</h2>
+					<p><a target="_blank" href="http://requirejs.org/">RequireJS</a></p>
+					ECMAScript 6
+					<p><a target="_blank" href="http://jsmodules.io/">ECMAScript 6 modules</a>
+					<p><a target="_blank" href="http://blog.angularjs.org/2014/03/angular-20.html">AngularJS 2</a> is being written in ES6</p>
+					<a target="_blank" href="http://webcomponents.org/">Web Components</a>
+					</p>
+					<aside class="notes">
+						Also see: http://www.2ality.com/2013/11/es6-modules-browsers.html
+						http://webcomponents.org/presentations/componentize-the-web-back-to-the-browser-at-lxjs/
+					</aside>
+				</section>
+				<section>
+					<h2>AngularJS Modules</h2>
+					<p>https://docs.angularjs.org/guide/module</p>
+					<p>Compartmentalize sections of your application</p>
+					<p>Does not deal with script loading</p>
+
+<pre><code class="liveCoding"contenteditable spellcheck="false">
+angular.module('myModule', []).
+  config(function(injectables) { // provider-injector
+    // This is an example of config block.
+  }).
+  run(function(injectables) { // instance-injector
+    // Like a Main method
+  });
+</code></pre>
+					<aside class="notes">
+					</aside>
+				</section>
+				<section>
+					<h2>RequireJS</h2>
+					<p><a target="_blank" href="http://requirejs.org/">RequireJS</a></p>
+					<aside class="notes">
+					</aside>
+				</section>
+				<section>
+					<h2>Modularization Future</h2>
+					<p><a target="_blank" href="http://jsmodules.io/">ECMAScript 6 modules</a>
+					<p><a target="_blank" href="http://blog.angularjs.org/2014/03/angular-20.html">AngularJS 2</a> is being written in ES6</p>
+					<p><a target="_blank" href="http://webcomponents.org/">Web Components</a>
+					</p>
+					<img alt="webcomponents" src="images/web-components-logo.svg"/>
+					<aside class="notes">
+						Also see: http://www.2ality.com/2013/11/es6-modules-browsers.html
+						http://webcomponents.org/presentations/componentize-the-web-back-to-the-browser-at-lxjs/
 					</aside>
 				</section>
 
@@ -193,8 +437,61 @@
 					<p>File Reader</p>
 					<p>Traditional Post</p>
 					<aside class="notes">
+					http://www.html5rocks.com/en/tutorials/file/dndfiles/
 					</aside>
 				</section>
+
+				<section>
+					<h2>Routing</h2>
+					<p>ngRoute (built-in)</p>
+					<p>Routing on steroids using <a href="https://github.com/angular-ui/ui-router">ui-router</a></p>
+					<aside class="notes">
+					</aside>
+				</section>
+				
+				<section>
+					<h2>Routing using ui-router</h2>
+					<p>state machine</p>
+					<p>nested views</p>
+					<p><a target="_blank" href="https://github.com/spring-projects/spring-xd/blob/master/spring-xd-ui/app/scripts/routes.js">Spring XD's <strong>routes.js</strong></a></p>
+					<aside class="notes">
+					</aside>
+				</section>
+				
+				<section>
+					<h2>Testing</h2>
+					<p><a href="https://github.com/angular/protractor">E2E testing with Protractor</a></p>
+					<p>Unit Testing using <a href="http://karma-runner.github.io/">Karma</a> and <a href="http://jasmine.github.io/">Jasmine</a></p>
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h2>UI Considerations</h2>
+					<p><a href="https://github.com/angular/protractor">Bootstrap</a></p>
+					<p>Keep your CSS maintainable with <a target="_blank" href="http://lesscss.org/">Less</a> and <a target="_blank" href="http://sass-lang.com/">Sass</a></p>
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h1>Resources</h1>
+				</section>
+
+				<section>
+					<img src="images/apress-pro-angularjs.png"/>
+				</section>
+
+				<section>
+					<img src="images/oreilly-angularjs.png"/>
+				</section>
+				
+				<section>
+					<h2>THANK YOU!!</h2>
+					<p>Source Code + Preso:</p>
+					<p><a target="_blank" href="https://github.com/ghillert/botanic-ng">https://github.com/ghillert/botanic-ng</a></p>
+				</section>
+				
 				
 				<!-- Example of nested vertical slides -->
 <!-- 				<section>
@@ -493,7 +790,8 @@ function linkify( selector ) {
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.min.js"></script>
-
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.18/angular.min.js"></script>
+		<script src="js/lodash.js"></script>
 		<script>
 
 			// Full list of configuration options available here:
@@ -518,7 +816,8 @@ function linkify( selector ) {
 					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
 					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/live-coding/live-coding.js', async: true, condition: function() { return !!document.body.classList; }}
 				]
 			});
 

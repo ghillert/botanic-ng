@@ -142,6 +142,7 @@ angular.module('botanicApp')
 			if (images.data._embedded) {
 				$scope.images = images.data._embedded.images;
 			}
+			
 		});
 
 		$scope.goBack = function () {
@@ -191,6 +192,9 @@ angular.module('botanicApp')
 		};
 		uploader.onSuccessItem = function(fileItem, response, status, headers) {
 			console.info('onSuccessItem', fileItem, response, status, headers);
+			if (typeof $scope.images === "undefined") {
+				$scope.images = [];
+			}
 			$scope.images.push(response);
 		};
 		uploader.onErrorItem = function(fileItem, response, status, headers) {

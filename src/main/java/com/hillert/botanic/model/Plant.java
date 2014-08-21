@@ -17,6 +17,7 @@ package com.hillert.botanic.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -39,7 +40,7 @@ public class Plant {
 	@ManyToOne
 	private Garden garden;
 	
-	@OneToMany(mappedBy = "plant", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "plant", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private List<Image> images;
 	
 	public Plant(String species, String genus, String commonName,
