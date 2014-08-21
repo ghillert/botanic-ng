@@ -37,6 +37,12 @@
 				background: rgba(0,0,0, 0);
 				box-shadow: 0 0 rgba(0, 0, 0, 0);
 			}
+			.reveal section h1 {
+				color: #f0c600;
+			}
+			.reveal section h2 {
+				color: #ff9000;
+			}
 		</style>
 		<!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
@@ -65,13 +71,14 @@
 						<li>Integration with Spring</li>
 						<li>Testing</li>
 						<li>Modularization</li>
+						<li>UI Considerations</li>
 					</ul>
 					<aside class="notes">
 					</aside>
 				</section>
 				
 				<section>
-					<h2>Introduction</h2>
+					<h2>Me</h2>
 					<ul>
 						<li>(Java) Web developer since 2005</li>
 						<li>Struts 1+2, Spring MVC, GWT, Flex</li>
@@ -164,12 +171,13 @@ parseInt('crap', 16); // 12
 
 				<section>
 					<h2>Angular JS Basics</h2>
-					<p>Model</p>
-					<p>View</p>
-					<p>Controller</p>
+					<p><span style="color: #db5800">M</span>odel</p>
+					<p><span style="color: #db5800">V</span>iew (Templates)</p>
+					<p><span style="color: #db5800">C</span>ontroller</p>
 					<p>Expressions</p>
 					<p>Directives</p>
 					<p>Modules</p>
+					<p>See also: <a target="_blank" href="https://docs.angularjs.org/guide/concepts">AngularJS Concepts</a>
 					<aside class="notes">
 					</aside>
 				</section>
@@ -196,13 +204,30 @@ parseInt('crap', 16); // 12
 
 				
 				<section>
-					<h2>Model</h2>
+					<h2>Model 1/2</h2>
+					<p>Angular is very flexible about your model</p>
+					<p>Ultimately expressed via the $scope</p>
+					<p>$scope = Glue between Controller and View</p>
+					<p>$scope mimics DOM (Hierarchical, one $rootScope)</p>
+					<p>$watch, $apply</p>
 					<aside class="notes">
+						Think Spring MVC Model - called model but not necessarily
+						your business model.
 					</aside>
 				</section>
 
 				<section>
+					<h2>Model 2/2</h2>
+					<p>Killer Feature: <span style="color: #db5800">Data-Binding</span></p>
+					<p>Model === single-source-of-truth</p>
+					<p>View reflects model changes automatically</p>
+					<aside class="notes">
+					</aside>
+				</section>
+				
+				<section>
 					<h2>View</h2>
+					<p>HTML is your templating Engine</p>
 					<p>Minimize logic as much as possible</p>
 					<p>Consider Custom Directives</p>
 					<aside class="notes">
@@ -211,14 +236,58 @@ parseInt('crap', 16); // 12
 
 				<section>
 					<h2>Controller</h2>
-					
+					<p>Used to "setup" your $scope</p>
+					<p>Add behavior to your $scope</p>
+					<p>Don't do UI work using controllers!!</p>
+					<p>Use directives and filters instead</p>
 					<aside class="notes">
 					</aside>
 				</section>
 
 				<section>
+					<h2>¡Hola! v2.0 - View</h2>
+					<pre><code class="liveCoding"contenteditable spellcheck="false">
+&lt;div ng-app=&quot;hola&quot; ng-controller=&quot;NameController&quot;&gt;
+  &lt;div&gt;
+    First Name: &lt;input type=&quot;text&quot; ng-model=&quot;firstName&quot;&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    Last Name: &lt;input type=&quot;text&quot; ng-model=&quot;lastName&quot;&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;b&gt;Complete Name:&lt;/b&gt; {{firstName + &#x27; &#x27; + lastName | uppercase}}
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+					<p><a target="_blank" href="http://plnkr.co/edit/BYCNW1tDh52SCyqdgJlt">Demo</a></p>
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h2>¡Hola! v2.0 - Controller</h2>
+					<pre><code class="liveCoding"contenteditable spellcheck="false">
+&lt;script&gt;
+  (function(){
+    var app = angular.module(&#x27;hola&#x27;, []);
+    app.controller(&#x27;NameController&#x27;, function($scope){
+      $scope.firstName=&#x27;Angular&#x27;;
+      $scope.lastName=&#x27;rocks&#x27;;
+    });
+  })();
+&lt;/script&gt;
+</code></pre>
+					<p><a target="_blank" href="http://plnkr.co/edit/BYCNW1tDh52SCyqdgJlt">Demo</a></p>
+					<aside class="notes">
+					</aside>
+				</section>
+				
+				<section>
 					<h2>Dependency Injection</h2>
-					<p>Use array notation</p>
+					<p>Consider using array notation</p>
+					app.controller('NameCtrl', function($scope){ ... });
+					app.controller('NameCtrl', ['$scope', function($scope){ ... }]);
+					<p>&nbsp;</p>
 					<p>Or use <a target="_blank" href="https://github.com/btford/ngmin">ngmin</a></p>
 					<p>grunt-ngmin, gulp-ngmin</p>
 					<aside class="notes">
@@ -227,13 +296,19 @@ parseInt('crap', 16); // 12
 
 				<section>
 					<h2>Expressions</h2>
+					<p>{{ expression }}</p>
+					<p>No Control Flow Statements</p>
+					<p>Can use filters inside expressions:</p>
+					<p>{{ 'abcd' | uppercase }}</p>
 					<aside class="notes">
 					</aside>
 				</section>
 
 				<section>
 					<h2>Directives</h2>
-					<p></p>
+					<p>Are markers on a DOM element</p>
+					<p>Attach behavior/transform DOM elements</p>
+					<p>ng-controller, ng-app ...
 					<aside class="notes">
 					</aside>
 				</section>
@@ -244,6 +319,13 @@ parseInt('crap', 16); // 12
 					<p>Element</p>
 					<p>Class</p>
 					<p>See: https://gist.github.com/CMCDragonkai/6282750</p>
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h2>Modules</h2>
+					<p>Bear with me ... </p>
 					<aside class="notes">
 					</aside>
 				</section>
@@ -369,16 +451,8 @@ public class MainApp extends RepositoryRestMvcConfiguration {
 
 				<section>
 					<h2>Modularization Now</h2>
+					<p>AngularJS Modules</p>
 					<p><a target="_blank" href="http://requirejs.org/">RequireJS</a></p>
-					ECMAScript 6
-					<p><a target="_blank" href="http://jsmodules.io/">ECMAScript 6 modules</a>
-					<p><a target="_blank" href="http://blog.angularjs.org/2014/03/angular-20.html">AngularJS 2</a> is being written in ES6</p>
-					<a target="_blank" href="http://webcomponents.org/">Web Components</a>
-					</p>
-					<aside class="notes">
-						Also see: http://www.2ality.com/2013/11/es6-modules-browsers.html
-						http://webcomponents.org/presentations/componentize-the-web-back-to-the-browser-at-lxjs/
-					</aside>
 				</section>
 				<section>
 					<h2>AngularJS Modules</h2>
@@ -401,6 +475,8 @@ angular.module('myModule', []).
 				<section>
 					<h2>RequireJS</h2>
 					<p><a target="_blank" href="http://requirejs.org/">RequireJS</a></p>
+					<p>JavaScript file and module loader</p>
+					<p>RequireJS Optimizer</p>
 					<aside class="notes">
 					</aside>
 				</section>
@@ -418,8 +494,10 @@ angular.module('myModule', []).
 				</section>
 
 				<section>
-					<h2>More Coolness</h2>
-					<p>Filters</p>
+					<h1>More Coolness</h1>
+				</section>
+				<section>
+					<h2>Filters</h2>
 					<pre><code data-trim contenteditable>
 ...
 &lt;tr ng-repeat=
