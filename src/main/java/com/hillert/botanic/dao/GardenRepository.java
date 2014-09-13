@@ -21,6 +21,7 @@ import com.hillert.botanic.model.Garden;
 
 /**
  * @author Gunnar Hillert
+ * @since 1.0
  */
 public interface GardenRepository extends CrudRepository<Garden, Long> {
 

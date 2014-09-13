@@ -25,6 +25,7 @@ import javax.persistence.OneToMany;
 
 /**
  * @author Gunnar Hillert
+ * @since 1.0
  */
 @Entity
 public class Garden {
@@ -32,10 +33,10 @@ public class Garden {
 	@Id @GeneratedValue Long id;
 	private String name;
 	private Address address;
-	
+
 	@OneToMany(mappedBy = "garden", fetch=FetchType.EAGER)
 	private List<Plant> plants;
-	
+
 	public Garden() {
 		super();
 	}

@@ -13,11 +13,14 @@
     "angular-ui-router": "0.2.10",
     "angular-google-maps": "~1.2.0",
     "angular-file-upload": "~1.1.1",
-    "angular-masonry": "~0.9.0"
+    "angular-masonry": "~0.9.1",
+    "stomp-websocket": "~2.3.3",
+    "sockjs": "~0.3.4"
   },
   "devDependencies": {
     "angular-mocks": "1.2.16",
-    "angular-scenario": "1.2.16"
+    "angular-scenario": "1.2.16",
+    "jasmine-jquery": "1.7.0"
   },
   "appPath": "app"
 }

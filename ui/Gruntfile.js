@@ -37,7 +37,7 @@ module.exports = function (grunt) {
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       bower: {
-        files: ['bower.json'],
+        files: ['/Users/hillert/dev/git/botanic-ng/ui/bower.json'],
         tasks: ['wiredep']
       },
       js: {
@@ -80,7 +80,7 @@ module.exports = function (grunt) {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: '0.0.0.0',
-        livereload: 35729
+        livereload: 35722
       },
       livereload: {
         options: {
@@ -152,19 +152,10 @@ module.exports = function (grunt) {
       },
       proxies: [
         {
-          context: ['/api/plants', '/api/images', '/api/upload', '/upload'],
+          context: ['/websocketbroker','/api/plants', '/api/images', '/api/upload', '/upload', '/authenticate'],
           host: 'localhost',
           port: 9900,
           changeOrigin: true,
-        },
-        {
-          context: ['/proxy/stores'],
-          host: 'localhost',
-          port: 8081,
-          changeOrigin: true,
-          rewrite: {
-            '^/proxy/stores': '/stores'
-          }
         }
       ]
     },
@@ -256,7 +247,7 @@ module.exports = function (grunt) {
     // Automatically inject Bower components into the app
     wiredep: {
       options: {
-        cwd: '<%= yeoman.app %>'
+       // cwd: '<%= yeoman.app %>'
       },
       app: {
         src: ['<%= yeoman.app %>/index.html'],
@@ -370,10 +361,9 @@ module.exports = function (grunt) {
       }
     },
 
-    // ngmin tries to make the code safe for minification automatically by
-    // using the Angular long form for dependency injection. It doesn't work on
-    // things like resolve or inject so those have to be done manually.
-    ngmin: {
+    // ng-annotate tries to make the code safe for minification automatically
+    // by using the Angular long form for dependency injection.
+    ngAnnotate: {
       dist: {
         files: [{
           expand: true,
@@ -496,7 +486,7 @@ module.exports = function (grunt) {
     'concurrent:dist',
     'autoprefixer',
     'concat',
-    'ngmin',
+    'ngAnnotate',
     'copy:dist',
     'cdnify',
     'cssmin',

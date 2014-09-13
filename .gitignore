@@ -13,3 +13,4 @@ target
 ui/node
 ui/bower_components
 ui/node_modules
+*.log

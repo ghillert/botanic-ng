@@ -44,10 +44,16 @@
 							<a ui-sref="plants.viewAll">Plants</a>
 					</li>
 					<li ng-class="{ active: $state.includes('garden') }">
-							<a ui-sref="stores">Garden</a>
+							<a ui-sref="garden">Garden</a>
 					</li>
 					<li ng-class="{ active: $state.includes('about') }">
 						<a ui-sref="about">About</a>
+					</li>
+					<li class="dropdown"><a data-target="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li ng-if="user.isAuthenticated"><a ui-sref="logout">Logout</a></li>
+							<li ng-if="!user.isAuthenticated"><a ui-sref="login">Login</a></li>
+						</ul>
 					</li>
 				</ul>
 			</div>
@@ -117,16 +123,24 @@
 	<script src="bower_components/masonry/masonry.js"></script>
 	<script src="bower_components/imagesloaded/imagesloaded.js"></script>
 	<script src="bower_components/angular-masonry/angular-masonry.js"></script>
+	<script src="bower_components/stomp-websocket/stomp.min.js"></script>
+	<script src="bower_components/sockjs/sockjs.js"></script>
 	<!-- endbower -->
+	
+	<script src="bower_components/stomp-websocket/lib/stomp.js"></script>
 	<!-- endbuild -->
-
+	
 	<!-- build:js({.tmp,app}) scripts/scripts.js -->
 	<script src="scripts/app.js"></script>
 	<script src="scripts/routes.js"></script>
 	<script src="scripts/directives.js"></script>
 	<script src="scripts/controllers/plant-controller.js"></script>
+	<script src="scripts/controllers/plant-details-controller.js"></script>
 	<script src="scripts/controllers/garden-controller.js"></script>
 	<script src="scripts/controllers/about-controller.js"></script>
+	<script src="scripts/controllers/login-controller.js"></script>
+	<script src="scripts/services/login-service.js"></script>
 	<!-- endbuild -->
+
 </body>
 </html>

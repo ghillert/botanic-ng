@@ -23,19 +23,23 @@ module.exports = function(config) {
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-cookies/angular-cookies.js',
       'bower_components/angular-resource/angular-resource.js',
-      'bower_components/angular-route/angular-route.js',
+      'bower_components/angular-ui-router/release/angular-ui-router.js',
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-touch/angular-touch.js',
+      'bower_components/angular-file-upload/angular-file-upload.js',
+      'bower_components/angular-masonry/angular-masonry.js',
+      'bower_components/jquery/dist/jquery.js',
+      'bower_components/jasmine-jquery/lib/jasmine-jquery.js',
       'app/scripts/**/*.js',
-      'test/mock/**/*.js',
-      'test/spec/**/*.js'
+      'test/spec/**/*.js',
+      {pattern: 'test/mock/*.json', watched: true, served: true, included: false}
     ],
 
     // list of files / patterns to exclude
     exclude: [],
 
     // web server port
-    port: 8080,
+    port: 9876,
 
     // Start these browsers, currently available:
     // - Chrome
@@ -52,6 +56,7 @@ module.exports = function(config) {
     // Which plugins to enable
     plugins: [
       'karma-phantomjs-launcher',
+      'karma-chrome-launcher',
       'karma-jasmine'
     ],
 

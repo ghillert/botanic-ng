@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d %5p [ %F:%L ] - %m%n</pattern>
+		</encoder>
+	</appender>
+	<logger name="org.springframework.security">
+		<level value="WARN"/>
+	</logger>
+	<logger name="org.springframework">
+		<level value="WARN"/>
+	</logger>
+	<logger name="org.springframework.web">
+		<level value="DEBUG"/>
+	</logger>
+	<logger name="org.hibernate.cache">
+		<level value="WARN"/>
+	</logger>
+	<logger name="org.hibernate.type">
+		<level value="WARN"/>
+	</logger>
+	<logger name="org.apache">
+		<level value="WARN"/>
+	</logger>
+	<logger name="org.hibernate.SQL">
+		<level value="WARN"/>
+	</logger>
+	<logger name="org.hibernate">
+		<level value="WARN"/>
+	</logger>
+	<logger name="org.hibernate.tool.hbm2ddl">
+		<level value="WARN"/>
+	</logger>
+	<logger name="com.hillert.apptools.spring">
+		<level value="INFO"/>
+	</logger>
+	<logger name="com.devnexus.ting.core.service.impl">
+		<level value="INFO"/>
+	</logger>
+	<logger name="com.devnexus.ting.core.dao">
+		<level value="INFO"/>
+	</logger>
+
+	<root>
+		<level value="WARN"/>
+		<appender-ref ref="CONSOLE"/>
+	</root>
+</configuration>

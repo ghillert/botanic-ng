@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hillert.botanic;
+package com.hillert.botanic.dao;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -23,8 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.hillert.botanic.dao.ImageRepository;
-import com.hillert.botanic.dao.PlantRepository;
+import com.hillert.botanic.MainApp;
 import com.hillert.botanic.model.Image;
 import com.hillert.botanic.model.Location;
 import com.hillert.botanic.model.Plant;

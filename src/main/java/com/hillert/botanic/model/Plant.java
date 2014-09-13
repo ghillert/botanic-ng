@@ -27,6 +27,7 @@ import javax.persistence.OneToMany;
 
 /**
  * @author Gunnar Hillert
+ * @since 1.0
  */
 @Entity
 public class Plant {
@@ -36,13 +37,13 @@ public class Plant {
 	private String genus;
 	private String commonName;
 	private Location location;
-	
+
 	@ManyToOne
 	private Garden garden;
-	
+
 	@OneToMany(mappedBy = "plant", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private List<Image> images;
-	
+
 	public Plant(String species, String genus, String commonName,
 			Location location, Garden garden) {
 		super();
@@ -117,14 +118,14 @@ public class Plant {
 	public void setLocation(Location location) {
 		this.location = location;
 	}
-	
+
 	/**
 	 * @return the images
 	 */
 	public List<Image> getImages() {
 		return images;
 	}
-	
+
 	/**
 	 * @param images the images to set
 	 */
@@ -145,5 +146,5 @@ public class Plant {
 	public void setGarden(Garden garden) {
 		this.garden = garden;
 	}
-	
+
 }

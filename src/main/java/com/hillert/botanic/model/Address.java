@@ -19,6 +19,7 @@ import javax.persistence.Embeddable;
 
 /**
  * @author Gunnar Hillert
+ * @since 1.0
  */
 @Embeddable
 public class Address {

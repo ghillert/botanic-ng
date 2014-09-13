@@ -17,6 +17,8 @@ package com.hillert.botanic.controller;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,8 +35,9 @@ import com.hillert.botanic.model.Plant;
 
 /**
  * Explicit controller for uploading Plant images.
- * 
+ *
  * @author Gunnar Hillert
+ * @since 1.0
  *
  */
 @Controller
@@ -48,14 +51,15 @@ public class UploadController {
 	private ImageRepository imageRepository;
 
 	@RequestMapping(method=RequestMethod.GET)
-	public @ResponseBody String provideUploadInfo(@PathVariable("plantId") Long plantId) {
+	public @ResponseBody String provideUploadInfo(@PathVariable("plantId") Long plantId, HttpServletRequest request) {
+		System.out.println(request.getSession().getId());
 		return String.format("You can upload a file for plant with id '%s' by posting to this same URL.", plantId);
 	}
 
-	/** 
+	/**
 	 * Handles image file uplods. Images are persistence to the database using
 	 * {@link ImageRepository}.
-	 * 
+	 *
 	 * @param file Must not be null
 	 * @param plantId Must not be null
 	 * @return The saved {@link Image} or {@code NULL} in case of a problem.
@@ -67,7 +71,7 @@ public class UploadController {
 
 		if (!file.isEmpty()) {
 			byte[] bytes;
-			
+
 			try {
 				bytes = file.getBytes();
 			}
@@ -76,11 +80,11 @@ public class UploadController {
 			}
 
 			final Plant plant = plantRepository.findOne(plantId);
-			
+
 			if (plant == null) {
 				throw new IllegalStateException(String.format("Plant with id '%s' not found.", plantId));
 			}
-			
+
 			final Image image = new Image();
 			image.setImage(bytes);
 			image.setPlant(plant);
@@ -91,7 +95,7 @@ public class UploadController {
 			imageToReturn.setId(savedImage.getId());
 			imageToReturn.setImage(savedImage.getImage());
 			imageToReturn.setName(savedImage.getName());
-			
+
 			return imageToReturn;
 		}
 		else {

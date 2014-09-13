@@ -21,7 +21,7 @@ import com.hillert.botanic.model.Image;
 
 /**
  * @author Gunnar Hillert
+ * @since 1.0
  */
-public interface ImageRepository extends CrudRepository<Image, Long> {
-
+public interface ImageRepository extends CrudRepository<Image, Long>, ImageRepositoryCustom {
 }

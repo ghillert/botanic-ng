@@ -9,5 +9,5 @@
  */
 angular.module('botanicApp')
 	.controller('AboutController', function ($scope) {
-
+		$scope.message = 'Spring Rocks';
 	});

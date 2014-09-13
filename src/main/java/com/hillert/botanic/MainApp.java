@@ -16,35 +16,50 @@
 package com.hillert.botanic;
 
 import java.net.URI;
+import java.text.DateFormat;
 
 import javax.servlet.MultipartConfigElement;
 
+import org.apache.catalina.connector.Connector;
+import org.apache.coyote.http11.AbstractHttp11Protocol;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.embedded.MultipartConfigFactory;
+import org.springframework.boot.context.embedded.tomcat.TomcatConnectorCustomizer;
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
+import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import com.hillert.botanic.dao.GardenRepository;
-import com.hillert.botanic.dao.ImageRepository;
-import com.hillert.botanic.dao.PlantRepository;
-import com.hillert.botanic.model.Address;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.hillert.botanic.model.Garden;
 import com.hillert.botanic.model.Image;
-import com.hillert.botanic.model.Location;
 import com.hillert.botanic.model.Plant;
+import com.hillert.botanic.service.SeedDataService;
+import com.hillert.botanic.support.ISO8601DateFormatWithMilliSeconds;
 
 /**
+ *
+ *
  * @author Gunnar  Hillert
+ * @since 1.0
  */
 @EnableAutoConfiguration
-@ComponentScan
 @EnableScheduling
+@ComponentScan
 public class MainApp extends RepositoryRestMvcConfiguration {
+
+	public static final String MAXIMUM_FILE_SIZE = "8192KB";
+	public static final String GZIP_COMPRESSION_MIME_TYPES =
+		MediaType.APPLICATION_JSON_VALUE + "," + "application/javascript" + "," + "text/css";
 
 	/**
 	 * Sets the base URL for the REST API. Also ensure that the primary IDs of
@@ -57,64 +72,79 @@ public class MainApp extends RepositoryRestMvcConfiguration {
 	}
 
 	/**
-	 * Main class initializes the Spring Application Context amd populates seed
-	 * data.
-	 * 
+	 * Main class initializes the Spring Application Context and populates seed
+	 * data using {@link SeedDataService}.
+	 *
 	 * @param args Not used.
 	 */
 	public static void main(String[] args) {
 		final ConfigurableApplicationContext context = SpringApplication.run(MainApp.class, args);
-		
-		final PlantRepository plantRepository = context.getBean(PlantRepository.class);
-		final ImageRepository imageRepository = context.getBean(ImageRepository.class);
-		final GardenRepository gardenRepository = context.getBean(GardenRepository.class);
-		
-		final Garden garden = new Garden();
-		garden.setName("My Home");
-		garden.setAddress(new Address("Somewhere", "30341", "Atlanta", new Location(33.909744d, -84.315390d)));
-		final Garden savedGarden = gardenRepository.save(garden);
-		
-		final Plant plant1 = new Plant("T. fortunei", "Trachycarpus", "Chinese Windmill Palm",           new Location(33.909722d, -84.315570d), savedGarden);
-		final Plant plant2 = new Plant("M. basjoo",   "Musa", "Japanese Fibre Banana",                   new Location(33.909731d, -84.315508d), savedGarden);
-		final Plant plant3 = new Plant("S. minor",    "Sabal", "Dwarf Palmetto",                         new Location(33.909812d, -84.315500d), savedGarden);
-		final Plant plant4 = new Plant("L. camara",   "Lantana", "Lantana",                              new Location(33.909791d, -84.315482d), savedGarden);
-		final Plant plant5 = new Plant("C. esculenta var. 'Mojito'", "Colocasia", "Mojito Elephant Ear", new Location(33.909784d, -84.315438d), savedGarden);
-		final Plant plant6 = new Plant("M. grahamii", "Manihot", "Hardy Tapioca",                        new Location(33.909605d, -84.315479d), savedGarden);
-		final Plant plant7 = new Plant("F. carica",   "Ficus", "common fig",                             new Location(33.909428d, -84.315387d), savedGarden);
-		final Plant plant8 = new Plant("P. nigra",    "Phyllostachys", "black bamboo",                   new Location(33.909295d, -84.315325d), savedGarden);
-		final Plant plant9 = new Plant("R. hystrix",  "Rhapidophyllum", "Needle Palm",                   new Location(33.909246d, -84.315417d), savedGarden);
-		
-		final Plant savedPlant1 = plantRepository.save(plant1);
-		final Plant savedPlant2 = plantRepository.save(plant2);
-		final Plant savedPlant3 = plantRepository.save(plant3);
-		final Plant savedPlant4 = plantRepository.save(plant4);
-		final Plant savedPlant5 = plantRepository.save(plant5);
-		final Plant savedPlant6 = plantRepository.save(plant6);
-		final Plant savedPlant7 = plantRepository.save(plant7);
-		final Plant savedPlant8 = plantRepository.save(plant8);
-		final Plant savedPlant9 = plantRepository.save(plant9);
-		
-		imageRepository.save(new Image("Manihot grahamii.jpg", context.getResource("classpath:/demo_images/Manihot grahamii.jpg"), savedPlant6));
-		imageRepository.save(new Image("Manihot grahamii-2.jpg", context.getResource("classpath:/demo_images/Manihot grahamii-2.jpg"), savedPlant6));
-		imageRepository.save(new Image("Manihot grahamii-3.jpg", context.getResource("classpath:/demo_images/Manihot grahamii-3.jpg"), savedPlant6));
-		imageRepository.save(new Image("Manihot grahamii-4.jpg", context.getResource("classpath:/demo_images/Manihot grahamii-4.jpg"), savedPlant6));
-		imageRepository.save(new Image("Manihot grahamii-5.jpg", context.getResource("classpath:/demo_images/Manihot grahamii-5.jpg"), savedPlant6));
-		imageRepository.save(new Image("Manihot grahamii-6.jpg", context.getResource("classpath:/demo_images/Manihot grahamii-6.jpg"), savedPlant6));
-
+		final SeedDataService seedDataService = context.getBean(SeedDataService.class);
+		seedDataService.populateSeedData();
 	}
 
 	/**
 	 * Configure the {@link MultipartConfigFactory#setMaxFileSize(String)} and
 	 * {@link MultipartConfigFactory#setMaxRequestSize(String)} using a value of
-	 * {@code 8192KB}.
-	 * 
+	 * {@link MainApp#MAXIMUM_FILE_SIZE}.
+	 *
 	 * @return The created {@link MultipartConfigElement} instance
 	 */
 	@Bean
 	MultipartConfigElement multipartConfigElement() {
 		MultipartConfigFactory factory = new MultipartConfigFactory();
-		factory.setMaxFileSize("8192KB");
-		factory.setMaxRequestSize("8192KB");
+		factory.setMaxFileSize(MAXIMUM_FILE_SIZE);
+		factory.setMaxRequestSize(MAXIMUM_FILE_SIZE);
 		return factory.createMultipartConfig();
+	}
+
+	/**
+	 * Configure the Jackson {@link ObjectMapper}. Use the {@link ISO8601DateFormatWithMilliSeconds}
+	 * to set a custom {@link DateFormat} ensuring that JSON Data are serialized
+	 * using the {@code ISO8601} format.
+	 */
+	@Bean
+	@Primary
+	public ObjectMapper objectMapper() {
+		final ObjectMapper objectMapper = super.objectMapper();
+		objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+		objectMapper.setDateFormat(new ISO8601DateFormatWithMilliSeconds());
+		return objectMapper;
+	}
+
+	@Bean
+	public org.springframework.http.converter.json.MappingJackson2HttpMessageConverter MappingJackson2HttpMessageConverter() {
+		org.springframework.http.converter.json.MappingJackson2HttpMessageConverter converter = new org.springframework.http.converter.json.MappingJackson2HttpMessageConverter();
+		converter.setObjectMapper(objectMapper());
+		return converter;
+	}
+
+	/**
+	 * Customize the embedded Tomcat container to enable GZIP compression for the
+	 * mime-types defined in {@link #GZIP_COMPRESSION_MIME_TYPES}.
+	 *
+	 * @return EmbeddedServletContainerCustomizer instance
+	 */
+	@Bean
+	public EmbeddedServletContainerCustomizer servletContainerCustomizer() {
+		return new EmbeddedServletContainerCustomizer() {
+			@Override
+			public void customize(ConfigurableEmbeddedServletContainer servletContainer) {
+				((TomcatEmbeddedServletContainerFactory) servletContainer).addConnectorCustomizers(
+					new TomcatConnectorCustomizer() {
+						@Override
+						public void customize(Connector connector) {
+							@SuppressWarnings("rawtypes")
+							AbstractHttp11Protocol httpProtocol = (AbstractHttp11Protocol) connector.getProtocolHandler();
+							httpProtocol.setCompression("on");
+							httpProtocol.setCompressionMinSize(256);
+							String mimeTypes = httpProtocol.getCompressableMimeTypes();
+							String mimeTypesWithJson = mimeTypes + "," + GZIP_COMPRESSION_MIME_TYPES;
+							httpProtocol.setCompressableMimeTypes(mimeTypesWithJson);
+						}
+					}
+				);
+			}
+		};
 	}
 }

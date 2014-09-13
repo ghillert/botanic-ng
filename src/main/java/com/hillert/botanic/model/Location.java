@@ -19,6 +19,7 @@ import javax.persistence.Embeddable;
 
 /**
  * @author Gunnar Hillert
+ * @since 1.0
  */
 @Embeddable
 public class Location {
@@ -49,5 +50,5 @@ public class Location {
 	public double getLongitude() {
 		return longitude;
 	}
-	
+
 }

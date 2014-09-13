@@ -42,18 +42,21 @@ angular.module('botanicApp')
 
 			function onLoadFile(event) {
 				var img = new Image();
-				img.onload = onLoadImage;
+				img.onload = function() {
+					createImage(img, params, canvas);
+				};
 				img.src = event.target.result;
 			}
 
-			function onLoadImage() {
-				var width = params.width || this.width / this.height * params.height;
-				var height = params.height || this.height / this.width * params.width;
+			function createImage(image, params, canvas) {
+				var width = params.width || image.width / image.height * params.height;
+				var height = params.height || image.height / image.width * params.width;
+
 				canvas.attr({
 					width: width,
 					height: height
 				});
-				canvas[0].getContext('2d').drawImage(this, 0, 0, width, height);
+				canvas[0].getContext('2d').drawImage(image, 0, 0, width, height);
 			}
 			
 			reader.onload = onLoadFile;

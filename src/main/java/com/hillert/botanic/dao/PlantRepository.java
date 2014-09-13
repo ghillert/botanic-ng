@@ -21,6 +21,7 @@ import com.hillert.botanic.model.Plant;
 
 /**
  * @author Gunnar Hillert
+ * @since 1.0
  */
 public interface PlantRepository extends CrudRepository<Plant, Long> {
 

@@ -5,7 +5,7 @@
 	<thead>
 		<tr>
 			<th>Details</th>
-			<th>Delete</th>
+			<th ng-show="hasRole('ROLE_ADMIN')">Delete</th>
 			<th>Species</th>
 			<th>Common Name</th>
 		</tr>
@@ -14,11 +14,11 @@
 		<tr ng-repeat="plant in plants">
 			<td style="width: 1px"><button type="button" class="btn btn-default"
 				ng-click="viewPlantDetails(plant)"><span class="glyphicon glyphicon-search"></span></button></td>
-			<td style="width: 1px"><button type="button" class="btn btn-danger"
+			<td style="width: 1px" ng-show="hasRole('ROLE_ADMIN')"><button type="button" class="btn btn-danger"
 				ng-click="deletePlant(plant)"><span class="glyphicon glyphicon-remove"></span></button></td>
 			<td>{{plant.species}}</td>
-			<td>{{plant.commonName}}</td>
+			<td>{{plant.commonName | uppercase}}</td>
 		</tr>
 	</tbody>
 </table>
-<button type="button" class="btn btn-default" ng-click="addPlant()">Add Plant</button>
+<button type="button" class="btn btn-default" ng-click="addPlant()" ng-show="hasRole('ROLE_ADMIN')">Add Plant</button>

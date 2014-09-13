@@ -21,6 +21,8 @@
   "globals": {
     "angular": false,
     "google": false,
+    "SockJS": false,
+    "Stomp": false,
     "_": false,
     "alert": false
   }

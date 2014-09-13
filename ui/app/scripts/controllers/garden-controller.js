@@ -8,17 +8,35 @@
  * Controller of the botanicApp
  */
 angular.module('botanicApp')
-	.controller('GardenController', function ($scope, $log, $http, $state, appConfiguration) {
-
-		$scope.loadStores = function () {
-			var storePromise = $http.get(appConfiguration.botanicApiUrl + '/gardens');
-			storePromise.then(function(gardens) {
-				$log.info('Retrieved gardens', gardens);
-				if (stores.data._embedded) {
-					$scope.garden = stores.data._embedded.gardens[0];
-				}
-			});
+	.controller('GardenController', function ($scope) {
+		$scope.images = [];
+		
+		var socket = new SockJS('/websocketbroker');
+		var stompClient = Stomp.over(socket);
+		
+		stompClient.debug = function() { //disable debugging
 		};
 
-		$scope.loadStores();
+		stompClient.connect({}, function(frame) {
+			console.log('Connected...', frame	);
+			stompClient.subscribe('/queue/pictures', function(message) {
+				var pictureJson = JSON.parse(message.body);
+				console.log('Receiving Garden Picture', pictureJson.name);
+				
+				console.log($scope.images.length);
+				
+				if ($scope.images.length === 0) {
+					$scope.images = [];
+				}
+				
+				if ($scope.images.length > 4) {
+					$scope.images.shift();
+				}
+				
+				$scope.images.push(pictureJson);
+				$scope.$apply();
+			});
+		}, function(error) {
+			console.log('STOMP protocol error', error);
+		});	
 	});

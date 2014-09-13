@@ -7,6 +7,10 @@ Botanic NG
 
 ## How to Run
 
+* Please make sure you have **Redis** running. Redis is used to store the session information.
+* Currently, the project relies on a SNAPSHOT release of [Spring Session](https://github.com/spring-projects/spring-session).
+* The project uses Java 8
+
     $mvn clean spring-boot:run
 
 The easiest way to run solely the UI is to use Spring Boot.

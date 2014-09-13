@@ -29,6 +29,7 @@ import org.springframework.util.StreamUtils;
 
 /**
  * @author Gunnar Hillert
+ * @since 1.0
  */
 @Entity
 public class Image {
@@ -36,10 +37,10 @@ public class Image {
 	@Id @GeneratedValue
 	private Long id;
 	private String name;
-	
+
 	@Lob
 	private byte[] image;
-	
+
 	@ManyToOne
 	private Plant plant;
 
@@ -47,7 +48,7 @@ public class Image {
 		super();
 		this.name = name;
 		this.plant = plant;
-		
+
 		InputStream is = null;
 		try {
 			is = data.getInputStream();
@@ -67,7 +68,7 @@ public class Image {
 			}
 		}
 	}
-	
+
 	public Image() {
 		super();
 	}
@@ -109,7 +110,7 @@ public class Image {
 	public void setImage(byte[] image) {
 		this.image = image;
 	}
-	
+
 	/**
 	 * @return the plant
 	 */
