@@ -19,8 +19,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
@@ -32,10 +30,8 @@ import org.springframework.util.StreamUtils;
  * @since 1.0
  */
 @Entity
-public class Image {
+public class Image extends BaseModelObject {
 
-	@Id @GeneratedValue
-	private Long id;
 	private String name;
 
 	@Lob
@@ -73,18 +69,6 @@ public class Image {
 		super();
 	}
 
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
 	/**
 	 * @return the name
 	 */

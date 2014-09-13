@@ -20,8 +20,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -30,9 +28,8 @@ import javax.persistence.OneToMany;
  * @since 1.0
  */
 @Entity
-public class Plant {
+public class Plant extends BaseModelObject {
 
-	@Id @GeneratedValue Long id;
 	private String species;
 	private String genus;
 	private String commonName;
@@ -58,18 +55,6 @@ public class Plant {
 		super();
 	}
 
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
 	/**
 	 * @return the species
 	 */

@@ -19,8 +19,6 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 /**
@@ -28,9 +26,8 @@ import javax.persistence.OneToMany;
  * @since 1.0
  */
 @Entity
-public class Garden {
+public class Garden extends BaseModelObject {
 
-	@Id @GeneratedValue Long id;
 	private String name;
 	private Address address;
 
@@ -39,19 +36,6 @@ public class Garden {
 
 	public Garden() {
 		super();
-	}
-
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	/**

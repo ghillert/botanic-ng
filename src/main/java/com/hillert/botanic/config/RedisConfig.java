@@ -39,16 +39,26 @@ public class RedisConfig {
 	}
 
 	@Bean
-	public RedisTemplate<String,ExpiringSession> redisTemplate(RedisConnectionFactory connectionFactory) {
-		RedisTemplate<String, ExpiringSession> template = new RedisTemplate<String, ExpiringSession>();
+	public RedisTemplate<String, ExpiringSession> redisTemplate(RedisConnectionFactory connectionFactory) {
+		final RedisTemplate<String, ExpiringSession> template = new RedisTemplate<String, ExpiringSession>();
 		template.setKeySerializer(new StringRedisSerializer());
 		template.setHashKeySerializer(new StringRedisSerializer());
 		template.setConnectionFactory(connectionFactory);
 		return template;
 	}
 
+	/**
+	 * Create an instance of the {@link RedisOperationsSessionRepository}. Set
+	 * {@link RedisOperationsSessionRepository#setDefaultMaxInactiveInterval(int)} to
+	 * {@link 9000 seconds}.
+	 *
+	 * @param redisTemplate
+	 * @return A RedisOperationsSessionRepository instance
+	 */
 	@Bean
 	public RedisOperationsSessionRepository sessionRepository(RedisTemplate<String, ExpiringSession> redisTemplate) {
-		return new RedisOperationsSessionRepository(redisTemplate);
+		final RedisOperationsSessionRepository redisOperationsSessionRepository = new RedisOperationsSessionRepository(redisTemplate);
+		redisOperationsSessionRepository.setDefaultMaxInactiveInterval(9000);
+		return redisOperationsSessionRepository;
 	}
 }

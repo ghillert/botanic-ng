@@ -53,7 +53,6 @@ import com.hillert.botanic.support.ISO8601DateFormatWithMilliSeconds;
  * @since 1.0
  */
 @EnableAutoConfiguration
-@EnableScheduling
 @ComponentScan
 public class MainApp extends RepositoryRestMvcConfiguration {
 
