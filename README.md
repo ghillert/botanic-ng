@@ -37,3 +37,8 @@ Now you can start the UI using:
 	$ grunt serve
 
 No you can visit [http://localhost:9000](http://localhost:9000). Please make sure that the backend is running (`com.hillert.botanic.MainApp`)
+
+## Resources
+
+* [Blog post](http://hillert.blogspot.com/2014/09/secure-your-angularjs-apps-with-spring-session.html) on how I use Spring Session in botanic-ng 
+* [Session slides](http://www.slideshare.net/hillert/angularjs-with-spring-s2gx2014) of the Spring One S2GX 2014 talk
