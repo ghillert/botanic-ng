@@ -85,6 +85,11 @@ public class DefaultSeedDataService implements SeedDataService {
 		imageRepository.save(new Image("Manihot grahamii-4.jpg", applicationContext.getResource("classpath:/demo_images/Manihot grahamii-4.jpg"), savedPlant6));
 		imageRepository.save(new Image("Manihot grahamii-5.jpg", applicationContext.getResource("classpath:/demo_images/Manihot grahamii-5.jpg"), savedPlant6));
 		imageRepository.save(new Image("Manihot grahamii-6.jpg", applicationContext.getResource("classpath:/demo_images/Manihot grahamii-6.jpg"), savedPlant6));
-	}
 
+		imageRepository.save(new Image("Trachycarpus fortunei.jpg", applicationContext.getResource("classpath:/demo_images/Trachycarpus fortunei.jpg"), savedPlant1));
+		imageRepository.save(new Image("Trachycarpus fortunei-2.jpg", applicationContext.getResource("classpath:/demo_images/Trachycarpus fortunei-2.jpg"), savedPlant1));
+		imageRepository.save(new Image("Trachycarpus fortunei-3.jpg", applicationContext.getResource("classpath:/demo_images/Trachycarpus fortunei-3.jpg"), savedPlant1));
+		imageRepository.save(new Image("Trachycarpus fortunei-4.jpg", applicationContext.getResource("classpath:/demo_images/Trachycarpus fortunei-4.jpg"), savedPlant1));
+		imageRepository.save(new Image("Trachycarpus fortunei-5.jpg", applicationContext.getResource("classpath:/demo_images/Trachycarpus fortunei-5.jpg"), savedPlant1));
+	}
 }
