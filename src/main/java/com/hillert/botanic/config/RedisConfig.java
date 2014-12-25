@@ -57,7 +57,7 @@ public class RedisConfig {
 	 */
 	@Bean
 	public RedisOperationsSessionRepository sessionRepository(RedisTemplate<String, ExpiringSession> redisTemplate) {
-		final RedisOperationsSessionRepository redisOperationsSessionRepository = new RedisOperationsSessionRepository(redisTemplate);
+		final RedisOperationsSessionRepository redisOperationsSessionRepository = new RedisOperationsSessionRepository(redisTemplate.getConnectionFactory());
 		redisOperationsSessionRepository.setDefaultMaxInactiveInterval(9000);
 		return redisOperationsSessionRepository;
 	}
