@@ -15,12 +15,13 @@
  */
 package com.hillert.botanic.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import com.hillert.botanic.controller.dto.AuthenticationRequest;
+import com.hillert.botanic.controller.dto.AuthenticationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,9 +35,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.hillert.botanic.controller.dto.AuthenticationRequest;
-import com.hillert.botanic.controller.dto.AuthenticationToken;
 
 /**
  * This controller generates the {@link AuthenticationToken} that must be present
@@ -63,14 +61,14 @@ public class AuthenticationController {
 			@RequestBody AuthenticationRequest authenticationRequest,
 			HttpServletRequest request) {
 
-		final UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
 				authenticationRequest.getUsername(), authenticationRequest.getPassword());
-		final Authentication authentication = this.authenticationManager.authenticate(token);
+		Authentication authentication = this.authenticationManager.authenticate(token);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		final HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(true);
 		session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, SecurityContextHolder.getContext());
 
-		final UserDetails details = this.userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+		UserDetails details = this.userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
 		final Map<String, Boolean> roles = new HashMap<String, Boolean>();
 

@@ -27,5 +27,4 @@ import com.hillert.botanic.model.Image;
 public interface ImageRepositoryCustom {
 
 	Image findRandomImage();
-
 }

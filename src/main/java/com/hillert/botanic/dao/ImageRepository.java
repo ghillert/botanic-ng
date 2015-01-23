@@ -15,9 +15,8 @@
  */
 package com.hillert.botanic.dao;
 
-import org.springframework.data.repository.CrudRepository;
-
 import com.hillert.botanic.model.Image;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * @author Gunnar Hillert

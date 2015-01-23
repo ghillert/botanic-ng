@@ -41,13 +41,13 @@ public class PlantRepositoryIntegrationTest {
 	@Test
 	public void testThatPlantIsPersisted() {
 
-		final Plant plant = new Plant();
+		Plant plant = new Plant();
 		plant.setCommonName("");
 		plant.setGenus("Trachycarpus");
 		plant.setSpecies("T. fortunei");
 		plant.setLocation(new Location(55.349451, -131.673817));
 
-		final Plant savedPlant = repository.save(plant);
+		Plant savedPlant = repository.save(plant);
 
 		assertThat(repository.findOne(savedPlant.getId()).getId(), is(plant.getId()));
 	}

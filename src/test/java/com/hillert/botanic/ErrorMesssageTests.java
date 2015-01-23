@@ -34,7 +34,7 @@ public class ErrorMesssageTests {
 	@Test
 	public void testErrorMessageSerialization() throws JsonProcessingException {
 
-		final ObjectMapper objectMapper = new ObjectMapper();
+		ObjectMapper objectMapper = new ObjectMapper();
 
 		ErrorMessage errorMessage = new ErrorMessage(new Date(), 404, "NotFoundException", "We did not find it.");
 		String json = objectMapper.writeValueAsString(errorMessage);

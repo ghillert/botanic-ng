@@ -31,7 +31,7 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
  */
 @Configuration
 @EnableScheduling
-public class SchedulingConfig implements SchedulingConfigurer {
+class SchedulingConfig implements SchedulingConfigurer {
 
 	@Bean
 	public ThreadPoolTaskScheduler taskScheduler() {
@@ -42,5 +42,4 @@ public class SchedulingConfig implements SchedulingConfigurer {
 	public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
 		taskRegistrar.setTaskScheduler(taskScheduler());
 	}
-
 }

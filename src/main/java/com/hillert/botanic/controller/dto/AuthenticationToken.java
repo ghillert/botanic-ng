@@ -31,17 +31,10 @@ public class AuthenticationToken {
 	private String token;
 
 	public AuthenticationToken() {
-		super();
 	}
 
 	public AuthenticationToken(String username, Map<String, Boolean> roles, String token) {
-
-		Map<String, Boolean> mapOfRoles = new ConcurrentHashMap<String, Boolean>();
-		for (String k : roles.keySet()) {
-			mapOfRoles.put(k, roles.get(k));
-		}
-
-		this.roles = mapOfRoles;
+		this.roles = new ConcurrentHashMap<String, Boolean>(roles);
 		this.token = token;
 		this.username = username;
 	}
@@ -67,5 +60,4 @@ public class AuthenticationToken {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
 }

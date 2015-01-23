@@ -27,7 +27,6 @@ public class AuthenticationRequest {
 	private String password;
 
 	public AuthenticationRequest() {
-		super();
 	}
 
 	public AuthenticationRequest(String username, String password) {
@@ -62,5 +61,4 @@ public class AuthenticationRequest {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 }

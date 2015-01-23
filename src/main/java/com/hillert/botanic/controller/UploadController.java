@@ -15,23 +15,18 @@
  */
 package com.hillert.botanic.controller;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 
 import com.hillert.botanic.dao.ImageRepository;
 import com.hillert.botanic.dao.PlantRepository;
 import com.hillert.botanic.model.Image;
 import com.hillert.botanic.model.Plant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Explicit controller for uploading Plant images.
@@ -40,9 +35,11 @@ import com.hillert.botanic.model.Plant;
  * @since 1.0
  *
  */
-@Controller
+@RestController
 @RequestMapping("/upload/plants/{plantId}")
 public class UploadController {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
 
 	@Autowired
 	private PlantRepository plantRepository;
@@ -51,8 +48,8 @@ public class UploadController {
 	private ImageRepository imageRepository;
 
 	@RequestMapping(method=RequestMethod.GET)
-	public @ResponseBody String provideUploadInfo(@PathVariable("plantId") Long plantId, HttpServletRequest request) {
-		System.out.println(request.getSession().getId());
+	public String provideUploadInfo(@PathVariable("plantId") Long plantId, HttpServletRequest request) {
+		LOGGER.info(request.getSession().getId());
 		return String.format("You can upload a file for plant with id '%s' by posting to this same URL.", plantId);
 	}
 
@@ -65,41 +62,38 @@ public class UploadController {
 	 * @return The saved {@link Image} or {@code NULL} in case of a problem.
 	 */
 	@RequestMapping(method=RequestMethod.POST)
-	@ResponseBody
-	public Image handleFileUpload(
-			@RequestParam("file") MultipartFile file, @PathVariable("plantId") Long plantId){
+	public Image handleFileUpload(@RequestParam("file") MultipartFile file, @PathVariable("plantId") Long plantId){
 
-		if (!file.isEmpty()) {
-			byte[] bytes;
-
-			try {
-				bytes = file.getBytes();
-			}
-			catch (IOException e) {
-				throw new IllegalStateException("Error uploading file.", e);
-			}
-
-			final Plant plant = plantRepository.findOne(plantId);
-
-			if (plant == null) {
-				throw new IllegalStateException(String.format("Plant with id '%s' not found.", plantId));
-			}
-
-			final Image image = new Image();
-			image.setImage(bytes);
-			image.setPlant(plant);
-			image.setName(file.getOriginalFilename());
-			final Image savedImage = imageRepository.save(image);
-
-			final Image imageToReturn = new Image();
-			imageToReturn.setId(savedImage.getId());
-			imageToReturn.setImage(savedImage.getImage());
-			imageToReturn.setName(savedImage.getName());
-
-			return imageToReturn;
-		}
-		else {
+		if(file.isEmpty()){
 			return null;
 		}
+
+		byte[] bytes;
+
+		try {
+			bytes = file.getBytes();
+		}
+		catch (IOException e) {
+			throw new IllegalStateException("Error uploading file.", e);
+		}
+
+		Plant plant = plantRepository.findOne(plantId);
+
+		if (plant == null) {
+			throw new IllegalStateException(String.format("Plant with id '%s' not found.", plantId));
+		}
+
+		Image image = new Image();
+		image.setImage(bytes);
+		image.setPlant(plant);
+		image.setName(file.getOriginalFilename());
+		Image savedImage = imageRepository.save(image);
+
+		Image imageToReturn = new Image();
+		imageToReturn.setId(savedImage.getId());
+		imageToReturn.setImage(savedImage.getImage());
+		imageToReturn.setName(savedImage.getName());
+
+		return imageToReturn;
 	}
 }

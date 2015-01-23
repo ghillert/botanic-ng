@@ -30,7 +30,7 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
  */
 @Configuration
 @EnableWebSocketMessageBroker
-public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
+class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
@@ -48,5 +48,4 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 		registry.enableSimpleBroker("/queue/", "/topic/");
 		registry.setApplicationDestinationPrefixes("/app");
 	}
-
 }

@@ -71,8 +71,8 @@ public class MainApp extends RepositoryRestMvcConfiguration {
 	 * @param args Not used.
 	 */
 	public static void main(String[] args) {
-		final ConfigurableApplicationContext context = SpringApplication.run(MainApp.class, args);
-		final SeedDataService seedDataService = context.getBean(SeedDataService.class);
+		ConfigurableApplicationContext context = SpringApplication.run(MainApp.class, args);
+		SeedDataService seedDataService = context.getBean(SeedDataService.class);
 		seedDataService.populateSeedData();
 	}
 
@@ -99,7 +99,7 @@ public class MainApp extends RepositoryRestMvcConfiguration {
 	@Bean
 	@Primary
 	public ObjectMapper objectMapper() {
-		final ObjectMapper objectMapper = super.objectMapper();
+		ObjectMapper objectMapper = super.objectMapper();
 		objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 		objectMapper.setDateFormat(new ISO8601DateFormatWithMilliSeconds());
 		return objectMapper;

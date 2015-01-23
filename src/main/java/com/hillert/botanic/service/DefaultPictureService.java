@@ -49,17 +49,18 @@ public class DefaultPictureService implements PictureService {
 	@Scheduled(fixedRate=10000)
 	@Override
 	public void sendRandomPicture() {
-		final Image image = imageRepository.findRandomImage();
-		if (image != null) {
-			Image imageToSend = new Image();
-			imageToSend.setImage(image.getImage());
-			imageToSend.setName(image.getName());
-			imageToSend.setId(image.getId());
-			messagingTemplate.convertAndSend("/queue/pictures", imageToSend);
-		}
-		else {
-			LOGGER.info("No image.");
-		}
-	}
 
+		Image image = imageRepository.findRandomImage();
+
+		if(image == null){
+			LOGGER.info("No image.");
+			return;
+		}
+
+		Image imageToSend = new Image();
+		imageToSend.setImage(image.getImage());
+		imageToSend.setName(image.getName());
+		imageToSend.setId(image.getId());
+		messagingTemplate.convertAndSend("/queue/pictures", imageToSend);
+	}
 }

@@ -33,11 +33,9 @@ import com.fasterxml.jackson.databind.util.ISO8601Utils;
 public class ISO8601DateFormatWithMilliSeconds extends ISO8601DateFormat {
 
 	@Override
-	public StringBuffer format(Date date, StringBuffer toAppendTo, FieldPosition fieldPosition)
-	{
-		final String value = ISO8601Utils.format(date, true);
+	public StringBuffer format(Date date, StringBuffer toAppendTo, FieldPosition fieldPosition) {
+		String value = ISO8601Utils.format(date, true);
 		toAppendTo.append(value);
 		return toAppendTo;
 	}
-
 }

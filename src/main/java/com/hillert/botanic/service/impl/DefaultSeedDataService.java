@@ -37,7 +37,7 @@ import com.hillert.botanic.service.SeedDataService;
 *
 */
 @Service
-public class DefaultSeedDataService implements SeedDataService {
+class DefaultSeedDataService implements SeedDataService {
 
 	@Autowired
 	private PlantRepository plantRepository;
@@ -54,30 +54,30 @@ public class DefaultSeedDataService implements SeedDataService {
 	@Override
 	@Transactional
 	public void populateSeedData() {
-		final Garden garden = new Garden();
+		Garden garden = new Garden();
 		garden.setName("My Home");
 		garden.setAddress(new Address("Somewhere", "30341", "Atlanta", new Location(33.909744d, -84.315390d)));
-		final Garden savedGarden = gardenRepository.save(garden);
+		Garden savedGarden = gardenRepository.save(garden);
 
-		final Plant plant1 = new Plant("T. fortunei", "Trachycarpus", "Chinese Windmill Palm",           new Location(33.909722d, -84.315570d), savedGarden);
-		final Plant plant2 = new Plant("M. basjoo",   "Musa", "Japanese Fibre Banana",                   new Location(33.909731d, -84.315508d), savedGarden);
-		final Plant plant3 = new Plant("S. minor",    "Sabal", "Dwarf Palmetto",                         new Location(33.909812d, -84.315500d), savedGarden);
-		final Plant plant4 = new Plant("L. camara",   "Lantana", "Lantana",                              new Location(33.909791d, -84.315482d), savedGarden);
-		final Plant plant5 = new Plant("C. esculenta var. 'Mojito'", "Colocasia", "Mojito Elephant Ear", new Location(33.909784d, -84.315438d), savedGarden);
-		final Plant plant6 = new Plant("M. grahamii", "Manihot", "Hardy Tapioca",                        new Location(33.909605d, -84.315479d), savedGarden);
-		final Plant plant7 = new Plant("F. carica",   "Ficus", "common fig",                             new Location(33.909428d, -84.315387d), savedGarden);
-		final Plant plant8 = new Plant("P. nigra",    "Phyllostachys", "black bamboo",                   new Location(33.909295d, -84.315325d), savedGarden);
-		final Plant plant9 = new Plant("R. hystrix",  "Rhapidophyllum", "Needle Palm",                   new Location(33.909246d, -84.315417d), savedGarden);
+		Plant plant1 = new Plant("T. fortunei", "Trachycarpus", "Chinese Windmill Palm",           new Location(33.909722d, -84.315570d), savedGarden);
+		Plant plant2 = new Plant("M. basjoo",   "Musa", "Japanese Fibre Banana",                   new Location(33.909731d, -84.315508d), savedGarden);
+		Plant plant3 = new Plant("S. minor",    "Sabal", "Dwarf Palmetto",                         new Location(33.909812d, -84.315500d), savedGarden);
+		Plant plant4 = new Plant("L. camara",   "Lantana", "Lantana",                              new Location(33.909791d, -84.315482d), savedGarden);
+		Plant plant5 = new Plant("C. esculenta var. 'Mojito'", "Colocasia", "Mojito Elephant Ear", new Location(33.909784d, -84.315438d), savedGarden);
+		Plant plant6 = new Plant("M. grahamii", "Manihot", "Hardy Tapioca",                        new Location(33.909605d, -84.315479d), savedGarden);
+		Plant plant7 = new Plant("F. carica",   "Ficus", "common fig",                             new Location(33.909428d, -84.315387d), savedGarden);
+		Plant plant8 = new Plant("P. nigra",    "Phyllostachys", "black bamboo",                   new Location(33.909295d, -84.315325d), savedGarden);
+		Plant plant9 = new Plant("R. hystrix",  "Rhapidophyllum", "Needle Palm",                   new Location(33.909246d, -84.315417d), savedGarden);
 
-		final Plant savedPlant1 = plantRepository.save(plant1);
-		final Plant savedPlant2 = plantRepository.save(plant2);
-		final Plant savedPlant3 = plantRepository.save(plant3);
-		final Plant savedPlant4 = plantRepository.save(plant4);
-		final Plant savedPlant5 = plantRepository.save(plant5);
-		final Plant savedPlant6 = plantRepository.save(plant6);
-		final Plant savedPlant7 = plantRepository.save(plant7);
-		final Plant savedPlant8 = plantRepository.save(plant8);
-		final Plant savedPlant9 = plantRepository.save(plant9);
+		Plant savedPlant1 = plantRepository.save(plant1);
+		Plant savedPlant2 = plantRepository.save(plant2);
+		Plant savedPlant3 = plantRepository.save(plant3);
+		Plant savedPlant4 = plantRepository.save(plant4);
+		Plant savedPlant5 = plantRepository.save(plant5);
+		Plant savedPlant6 = plantRepository.save(plant6);
+		Plant savedPlant7 = plantRepository.save(plant7);
+		Plant savedPlant8 = plantRepository.save(plant8);
+		Plant savedPlant9 = plantRepository.save(plant9);
 
 		imageRepository.save(new Image("Manihot grahamii.jpg", applicationContext.getResource("classpath:/demo_images/Manihot grahamii.jpg"), savedPlant6));
 		imageRepository.save(new Image("Manihot grahamii-2.jpg", applicationContext.getResource("classpath:/demo_images/Manihot grahamii-2.jpg"), savedPlant6));

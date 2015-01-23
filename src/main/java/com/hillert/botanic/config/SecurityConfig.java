@@ -54,7 +54,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		final SessionRepositoryFilter sessionRepositoryFilter = new SessionRepositoryFilter(sessionRepository);
+		SessionRepositoryFilter sessionRepositoryFilter = new SessionRepositoryFilter(sessionRepository);
 		sessionRepositoryFilter.setHttpSessionStrategy(new HeaderHttpSessionStrategy());
 
 		http
