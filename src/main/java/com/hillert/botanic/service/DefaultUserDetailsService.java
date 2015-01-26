@@ -15,11 +15,7 @@
  */
 package com.hillert.botanic.service;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -52,12 +48,10 @@ public class DefaultUserDetailsService implements UserDetailsService {
 			// setup roles
 			Set<String> roles = new HashSet<String>();
 			roles.addAll(Arrays.<String>asList(null == extraRoles ? new String[0] : extraRoles));
-
 			// export them as part of authorities
 			for (String r : roles) {
 				authorities.add(new SimpleGrantedAuthority(role(r)));
 			}
-
 		}
 
 		public String toString() {

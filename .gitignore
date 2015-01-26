@@ -8,6 +8,7 @@ bower_components
 .settings
 .project
 .idea
+botanic-ng.iml
 target
 .editorconfig
 ui/node

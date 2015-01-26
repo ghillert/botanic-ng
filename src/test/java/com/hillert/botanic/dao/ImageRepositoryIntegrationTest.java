@@ -15,29 +15,30 @@
  */
 package com.hillert.botanic.dao;
 
-import static org.junit.Assert.assertNotNull;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import static org.junit.Assert.*;
 
 import com.hillert.botanic.MainApp;
 import com.hillert.botanic.model.Image;
 import com.hillert.botanic.model.Location;
 import com.hillert.botanic.model.Plant;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Gunnar Hillert
  */
+@Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = MainApp.class)
 public class ImageRepositoryIntegrationTest {
 
 	@Autowired PlantRepository plantRepository;
 	@Autowired ImageRepository imageRepository;
-	
+
 	@Test
 	public void saveImage() {
 
@@ -59,5 +60,25 @@ public class ImageRepositoryIntegrationTest {
 		final Image savedImage = imageRepository.save(image);
 		
 		assertNotNull(savedImage);
+	}
+
+	@Test
+	public void findRandomImage(){
+
+		Plant plant1 = plantRepository.save(new Plant("Species1","Genus1","CommonName1",new Location(55.349451, -131.673817),null));
+		Image image1 = imageRepository.save(new Image("Plant1", "imagedata".getBytes(), plant1));
+
+		Plant plant2 = plantRepository.save(new Plant("Species2","Genus2","CommonName2",new Location(55.349451, -131.673817),null));
+		Image image2 = imageRepository.save(new Image("Plant2", "imagedata".getBytes(), plant2));
+
+		Plant plant3 = plantRepository.save(new Plant("Species3","Genus3","CommonName3",new Location(55.349451, -131.673817),null));
+		Image image3 = imageRepository.save(new Image("Plant3", "imagedata".getBytes(), plant3));
+
+
+		Image img = imageRepository.findRandomImage();
+		assertNotNull(img);
+
+		img = imageRepository.findRandomImage();
+		assertNotNull(img);
 	}
 }

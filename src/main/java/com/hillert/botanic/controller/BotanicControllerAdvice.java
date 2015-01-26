@@ -46,5 +46,4 @@ public class BotanicControllerAdvice {
 	public ErrorMessage handleAuthenticationException(Exception e) {
 		return new ErrorMessage(new Date(), HttpStatus.FORBIDDEN.value(), e.getClass().getName(), e.getMessage());
 	}
-
 }

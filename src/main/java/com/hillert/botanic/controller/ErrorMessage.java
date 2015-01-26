@@ -32,7 +32,6 @@ public class ErrorMessage {
 
 	public ErrorMessage(Date timestamp, int status, String exception,
 			String message) {
-		super();
 		this.timestamp = timestamp;
 		this.status = status;
 		this.exception = exception;
@@ -66,5 +65,4 @@ public class ErrorMessage {
 	public String getMessage() {
 		return message;
 	}
-
 }

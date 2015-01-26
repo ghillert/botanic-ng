@@ -15,13 +15,13 @@
  */
 package com.hillert.botanic.model;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import java.io.IOException;
+import java.io.InputStream;
 
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.util.StreamUtils;
 
@@ -41,7 +41,6 @@ public class Image extends BaseModelObject {
 	private Plant plant;
 
 	public Image(String name, Resource data, Plant plant) {
-		super();
 		this.name = name;
 		this.plant = plant;
 
@@ -63,6 +62,10 @@ public class Image extends BaseModelObject {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public Image(String name, byte[] data, Plant plant){
+		this(name, new ByteArrayResource(data), plant);
 	}
 
 	public Image() {
@@ -108,4 +111,11 @@ public class Image extends BaseModelObject {
 		this.plant = plant;
 	}
 
+	@Override
+	public String toString() {
+		return "Image{" +
+				"name='" + name + '\'' +
+				", plant=" + plant +
+				'}';
+	}
 }

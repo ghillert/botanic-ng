@@ -15,27 +15,9 @@
  */
 package com.hillert.botanic;
 
+import javax.servlet.MultipartConfigElement;
 import java.net.URI;
 import java.text.DateFormat;
-
-import javax.servlet.MultipartConfigElement;
-
-import org.apache.catalina.connector.Connector;
-import org.apache.coyote.http11.AbstractHttp11Protocol;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
-import org.springframework.boot.context.embedded.MultipartConfigFactory;
-import org.springframework.boot.context.embedded.tomcat.TomcatConnectorCustomizer;
-import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Primary;
-import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
-import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
-import org.springframework.http.MediaType;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -44,15 +26,28 @@ import com.hillert.botanic.model.Image;
 import com.hillert.botanic.model.Plant;
 import com.hillert.botanic.service.SeedDataService;
 import com.hillert.botanic.support.ISO8601DateFormatWithMilliSeconds;
+import org.apache.catalina.connector.Connector;
+import org.apache.coyote.http11.AbstractHttp11Protocol;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.context.embedded.MultipartConfigFactory;
+import org.springframework.boot.context.embedded.tomcat.TomcatConnectorCustomizer;
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
+import org.springframework.http.MediaType;
 
 /**
- *
- *
  * @author Gunnar  Hillert
+ * @author Thomas Darimont
  * @since 1.0
  */
-@EnableAutoConfiguration
-@ComponentScan
+@SpringBootApplication
 public class MainApp extends RepositoryRestMvcConfiguration {
 
 	public static final String MAXIMUM_FILE_SIZE = "8192KB";
@@ -76,8 +71,8 @@ public class MainApp extends RepositoryRestMvcConfiguration {
 	 * @param args Not used.
 	 */
 	public static void main(String[] args) {
-		final ConfigurableApplicationContext context = SpringApplication.run(MainApp.class, args);
-		final SeedDataService seedDataService = context.getBean(SeedDataService.class);
+		ConfigurableApplicationContext context = SpringApplication.run(MainApp.class, args);
+		SeedDataService seedDataService = context.getBean(SeedDataService.class);
 		seedDataService.populateSeedData();
 	}
 
@@ -104,7 +99,7 @@ public class MainApp extends RepositoryRestMvcConfiguration {
 	@Bean
 	@Primary
 	public ObjectMapper objectMapper() {
-		final ObjectMapper objectMapper = super.objectMapper();
+		ObjectMapper objectMapper = super.objectMapper();
 		objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 		objectMapper.setDateFormat(new ISO8601DateFormatWithMilliSeconds());
 		return objectMapper;
