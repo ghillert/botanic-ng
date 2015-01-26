@@ -41,7 +41,7 @@
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
-				<version>0.0.15</version>
+				<version>0.0.20</version>
 				<configuration>
 					<workingDirectory>ui</workingDirectory>
 				</configuration>
@@ -144,7 +144,7 @@
 		<dependency>
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session</artifactId>
-			<version>1.0.0.BUILD-SNAPSHOT</version>
+			<version>1.0.0.RELEASE</version>
 		</dependency>
 
         <dependency>
@@ -162,7 +162,7 @@
 		<repository>
 			<id>repo.spring.io.milestone</id>
 			<name>Spring Maven Milestone Repository</name>
-			<url>https://repo.spring.io/libs-snapshot</url>
+			<url>https://repo.spring.io/libs-milestone</url>
 		</repository>
 		<repository>
 			<id>clojars.org</id>
