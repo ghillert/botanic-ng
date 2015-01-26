@@ -147,12 +147,18 @@
 			<version>1.0.0.RELEASE</version>
 		</dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-redis</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-redis</artifactId>
+		</dependency>
 
-        <dependency>
+		<dependency>
+			<groupId>redis.embedded</groupId>
+			<artifactId>embedded-redis</artifactId>
+			<version>0.3</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-remote-shell</artifactId>
 		</dependency>
