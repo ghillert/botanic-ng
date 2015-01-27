@@ -15,6 +15,11 @@
  */
 package com.hillert.botanic.config;
 
+import java.io.File;
+
+import org.apache.commons.lang3.SystemUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -26,6 +31,7 @@ import org.springframework.context.annotation.Configuration;
 
 import redis.clients.jedis.Protocol;
 import redis.embedded.RedisServer;
+import redis.embedded.util.JarUtil;
 
 /**
  * Runs an embedded Redis instance. Taken from the Spring Session samples.
@@ -35,6 +41,8 @@ import redis.embedded.RedisServer;
  */
 @Configuration
 public class EmbeddedRedisConfiguration {
+
+	public static final Logger LOGGER = LoggerFactory.getLogger(EmbeddedRedisConfiguration.class);
 
 	@Bean
 	public static RedisServerBean redisServer() {
@@ -51,7 +59,18 @@ public class EmbeddedRedisConfiguration {
 		private RedisServer redisServer;
 
 		public void afterPropertiesSet() throws Exception {
-			redisServer = new RedisServer(Protocol.DEFAULT_PORT);
+
+			final File serverFile;
+
+			if (SystemUtils.IS_OS_WINDOWS) {
+				serverFile = JarUtil.extractExecutableFromJar("redis-2.8.17/redis-server.exe");
+			}
+			else {
+				serverFile = JarUtil.extractExecutableFromJar("redis-2.8.17/redis-server");
+			}
+
+			LOGGER.info("Using redis server at: " + serverFile.getAbsolutePath());
+			redisServer = new RedisServer(serverFile, Protocol.DEFAULT_PORT);
 			redisServer.start();
 		}
 

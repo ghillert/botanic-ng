@@ -13,7 +13,7 @@
 		<level value="WARN"/>
 	</logger>
 	<logger name="org.springframework.web">
-		<level value="DEBUG"/>
+		<level value="WARN"/>
 	</logger>
 	<logger name="org.hibernate.cache">
 		<level value="WARN"/>
