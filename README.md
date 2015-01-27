@@ -4,6 +4,7 @@ Botanic NG
 **Angular JS Sample Application**
 
 [![Build Status](https://travis-ci.org/ghillert/botanic-ng.svg)](https://travis-ci.org/ghillert/botanic-ng)
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/ghillert/botanic-ng?branch=master&svg=true)](https://ci.appveyor.com/project/ghillert/botanic-ng)
 
 ## Requirements
 
@@ -40,5 +41,5 @@ No you can visit [http://localhost:9000](http://localhost:9000). Please make sur
 
 ## Resources
 
-* [Blog post](http://hillert.blogspot.com/2014/09/secure-your-angularjs-apps-with-spring-session.html) on how I use Spring Session in botanic-ng 
+* [Blog post](http://hillert.blogspot.com/2014/09/secure-your-angularjs-apps-with-spring-session.html) on how I use Spring Session in botanic-ng
 * [Session slides](http://www.slideshare.net/hillert/angularjs-with-spring-s2gx2014) of the Spring One S2GX 2014 talk
