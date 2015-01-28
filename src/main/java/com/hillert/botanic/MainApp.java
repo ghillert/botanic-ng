@@ -16,8 +16,11 @@
 package com.hillert.botanic;
 
 import javax.servlet.MultipartConfigElement;
+
 import java.net.URI;
 import java.text.DateFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -26,6 +29,7 @@ import com.hillert.botanic.model.Image;
 import com.hillert.botanic.model.Plant;
 import com.hillert.botanic.service.SeedDataService;
 import com.hillert.botanic.support.ISO8601DateFormatWithMilliSeconds;
+
 import org.apache.catalina.connector.Connector;
 import org.apache.coyote.http11.AbstractHttp11Protocol;
 import org.springframework.boot.SpringApplication;
@@ -38,9 +42,11 @@ import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletCon
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.env.MapPropertySource;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.http.MediaType;
+import org.springframework.util.SocketUtils;
 
 /**
  * @author Gunnar  Hillert
@@ -71,7 +77,19 @@ public class MainApp extends RepositoryRestMvcConfiguration {
 	 * @param args Not used.
 	 */
 	public static void main(String[] args) {
-		ConfigurableApplicationContext context = SpringApplication.run(MainApp.class, args);
+		Map<String, Object> props = new HashMap<String, Object>();
+		props.put("redisPort", SocketUtils.findAvailableTcpPort());
+
+		SpringApplication app = new SpringApplication(MainApp.class);
+		app.setDefaultProperties(props);
+
+		ConfigurableApplicationContext context = app.run(args);
+
+		MapPropertySource propertySource = new MapPropertySource("ports", props);
+
+		context.getEnvironment().getPropertySources().addFirst(propertySource);
+
+
 		SeedDataService seedDataService = context.getBean(SeedDataService.class);
 		seedDataService.populateSeedData();
 	}

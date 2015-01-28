@@ -23,13 +23,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 
-import redis.clients.jedis.Protocol;
 import redis.embedded.RedisServer;
 import redis.embedded.util.JarUtil;
 
@@ -39,13 +43,16 @@ import redis.embedded.util.JarUtil;
  * @author Rob Winch
  * @author Gunnar Hillert
  */
-@Configuration
+//@Configuration
 public class EmbeddedRedisConfiguration {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(EmbeddedRedisConfiguration.class);
 
+	@Autowired
+	private Environment environment;
+
 	@Bean
-	public static RedisServerBean redisServer() {
+	public RedisServerBean redisServer() {
 		return new RedisServerBean();
 	}
 
@@ -55,8 +62,12 @@ public class EmbeddedRedisConfiguration {
 	 * that the Redis Server is started before RedisHttpSessionConfiguration
 	 * attempts to enable Keyspace notifications.
 	 */
-	static class RedisServerBean implements InitializingBean, DisposableBean, BeanDefinitionRegistryPostProcessor {
+	public static class RedisServerBean implements InitializingBean, DisposableBean, BeanDefinitionRegistryPostProcessor, ApplicationContextAware {
 		private RedisServer redisServer;
+		private Integer port;
+
+		public RedisServerBean() {
+		}
 
 		public void afterPropertiesSet() throws Exception {
 
@@ -68,9 +79,8 @@ public class EmbeddedRedisConfiguration {
 			else {
 				serverFile = JarUtil.extractExecutableFromJar("redis-2.8.17/redis-server");
 			}
-
-			LOGGER.info("Using redis server at: " + serverFile.getAbsolutePath());
-			redisServer = new RedisServer(serverFile, Protocol.DEFAULT_PORT);
+			LOGGER.info("Using redis server at: {} with port {}", serverFile.getAbsolutePath(), port);
+			redisServer = new RedisServer(serverFile, port); //Protocol.DEFAULT_PORT
 			redisServer.start();
 		}
 
@@ -85,5 +95,10 @@ public class EmbeddedRedisConfiguration {
 
 		@Override
 		public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {}
+
+		@Override
+		public void setApplicationContext(ApplicationContext ctx) {
+				this.port = ctx.getEnvironment().getRequiredProperty("redisPort", Integer.class);
+		}
 	}
 }
