@@ -15,6 +15,10 @@
 
 	<name>botanic-ng</name>
 
+	<prerequisites>
+		<maven>3.1.0</maven>
+	</prerequisites>
+
 	<properties>
 		<spring-data-rest.version>2.2.0.RELEASE</spring-data-rest.version>
 	</properties>
@@ -41,7 +45,7 @@
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
-				<version>0.0.20</version>
+				<version>0.0.26</version>
 				<configuration>
 					<workingDirectory>ui</workingDirectory>
 				</configuration>
