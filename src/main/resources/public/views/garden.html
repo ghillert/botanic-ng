@@ -1,1 +1,14 @@
-<h1>Garden Pictures</h1> <div class="row" ng-show="images"> <div class="col-md-12"> <div masonry> <div class="masonry-brick" ng-repeat="plantImage in images"> <img ng-src="data:image/PNG;base64,{{plantImage.image}}" width="330px" style="margin: 5px" title="{{plantImage.name}}"> </div> </div> </div> </div>
+
+<h1>Garden Pictures</h1>
+
+<div class="row" ng-show="images">
+	<div class="col-md-12">
+		<div masonry>
+			<div class="masonry-brick" ng-repeat="plantImage in images">
+				<img ng-src="data:image/PNG;base64,{{plantImage.image}}" width="330px"
+				style="margin: 5px;" title="{{plantImage.name}}"/>
+			</div>
+		</div>
+	</div>
+</div>
+

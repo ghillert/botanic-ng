@@ -56,7 +56,13 @@ public class AuthenticationController {
 		this.userDetailsService = userDetailsService;
 	}
 
-	@RequestMapping(value = "/authenticate", method = { RequestMethod.POST })
+	@RequestMapping(value = "/api/test", method = { RequestMethod.GET })
+	public void test(HttpServletRequest request) {
+		System.out.println(request.getSession().getId());
+		System.out.println(request.getUserPrincipal());
+	}
+
+	@RequestMapping(value = "/api/authenticate", method = { RequestMethod.POST })
 	public AuthenticationToken authorize(
 			@RequestBody AuthenticationRequest authenticationRequest,
 			HttpServletRequest request) {

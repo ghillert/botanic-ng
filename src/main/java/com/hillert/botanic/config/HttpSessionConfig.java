@@ -15,19 +15,12 @@
  */
 package com.hillert.botanic.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
-import org.springframework.session.ExpiringSession;
-import org.springframework.session.data.redis.RedisOperationsSessionRepository;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.web.http.HeaderHttpSessionStrategy;
+import org.springframework.session.web.http.HttpSessionStrategy;
 
 /**
  * Contains Spring Session related configuration.
@@ -37,45 +30,16 @@ import org.springframework.session.web.http.HeaderHttpSessionStrategy;
  *
  */
 @Configuration
-//@EnableRedisHttpSession(maxInactiveIntervalInSeconds=9000)
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds=9000)
 class HttpSessionConfig {
 
-//	@Autowired
-//	Environment environment;
-//
-//	@Bean
-//	public HeaderHttpSessionStrategy headerHttpSessionStrategy() {
-//		return new HeaderHttpSessionStrategy();
-//	}
-
-//	@Bean
-//	public JedisConnectionFactory connectionFactory() {
-//		JedisConnectionFactory connectionFactory = new JedisConnectionFactory();
-//		connectionFactory.setPort(environment.getProperty("redisPort", Integer.class));
-//		return new JedisConnectionFactory();
-//	}
-
 	@Bean
-	public RedisTemplate<String, ExpiringSession> redisTemplate(RedisConnectionFactory connectionFactory) {
-		RedisTemplate<String, ExpiringSession> template = new RedisTemplate<String, ExpiringSession>();
-		template.setKeySerializer(new StringRedisSerializer());
-		template.setHashKeySerializer(new StringRedisSerializer());
-		template.setConnectionFactory(connectionFactory);
-		return template;
+	public JedisConnectionFactory connectionFactory() {
+			return new JedisConnectionFactory();
 	}
 
-	/**
-	 * Create an instance of the {@link RedisOperationsSessionRepository}. Set
-	 * {@link RedisOperationsSessionRepository#setDefaultMaxInactiveInterval(int)} to
-	 * {@link 9000 seconds}.
-	 *
-	 * @param redisTemplate
-	 * @return A RedisOperationsSessionRepository instance
-	 */
 	@Bean
-	public RedisOperationsSessionRepository sessionRepository(RedisTemplate<String, ExpiringSession> redisTemplate) {
-		RedisOperationsSessionRepository redisOperationsSessionRepository = new RedisOperationsSessionRepository(redisTemplate);
-		redisOperationsSessionRepository.setDefaultMaxInactiveInterval(9000);
-		return redisOperationsSessionRepository;
+	public HttpSessionStrategy httpSessionStrategy() {
+			return new HeaderHttpSessionStrategy();
 	}
 }
