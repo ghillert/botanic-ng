@@ -46,6 +46,9 @@ import org.springframework.core.env.MapPropertySource;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.http.MediaType;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.session.web.http.HeaderHttpSessionStrategy;
+import org.springframework.session.web.http.HttpSessionStrategy;
 import org.springframework.util.SocketUtils;
 
 /**
@@ -54,6 +57,7 @@ import org.springframework.util.SocketUtils;
  * @since 1.0
  */
 @SpringBootApplication
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds=9000)
 public class MainApp extends RepositoryRestMvcConfiguration {
 
 	public static final String MAXIMUM_FILE_SIZE = "8192KB";
@@ -157,5 +161,10 @@ public class MainApp extends RepositoryRestMvcConfiguration {
 				);
 			}
 		};
+	}
+
+	@Bean
+	public HttpSessionStrategy httpSessionStrategy() {
+			return new HeaderHttpSessionStrategy();
 	}
 }

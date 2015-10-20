@@ -1,0 +1,9 @@
+---
+applications:
+- name: botanic-ng
+  memory: 1024M
+  host: botanic-ng
+  domain: cfapps.io
+  services:
+  - rediscloud
+  instances: 3

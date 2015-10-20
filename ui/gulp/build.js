@@ -19,7 +19,7 @@ gulp.task('partials', function () {
       quotes: true
     }))
     .pipe($.angularTemplatecache('templateCacheHtml.js', {
-      module: 'uiGulp',
+      module: 'botanicApp',
       root: 'app'
     }))
     .pipe(gulp.dest(conf.paths.tmp + '/partials/'));
@@ -88,7 +88,7 @@ gulp.task('other', function () {
 });
 
 gulp.task('clean', ['tsd:purge'], function (done) {
-  $.del([path.join(conf.paths.dist, '/'), path.join(conf.paths.tmp, '/')], done);
+  $.del([path.join(conf.paths.dist, '/'), path.join(conf.paths.tmp, '/')], { force: true }, done);
 });
 
 gulp.task('build', ['html', 'fonts', 'other']);
