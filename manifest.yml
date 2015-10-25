@@ -6,4 +6,4 @@ applications:
   domain: cfapps.io
   services:
   - rediscloud
-  instances: 3
+  instances: 1

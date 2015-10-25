@@ -14,7 +14,7 @@ angular.module('botanicApp')
 		$scope.images = [];
 		console.log('GardenController');
 
-		var socket = new SockJS('http://localhost:9900/websocketbroker');
+		var socket = new SockJS('//' + window.location.host + '/websocketbroker');
 		var stompClient = Stomp.over(socket);
 
 		stompClient.debug = function() { //disable debugging
