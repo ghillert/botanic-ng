@@ -1,0 +1,166 @@
+@import "typography.less";
+@import "header.less";
+
+@botanic-orange:      #db5800;
+@botanic-dark-green:  #59631e;
+@botanic-light-green: #8ea106;
+@botanic-yellow:      #f0c600;
+@spring-grey:         #838789;
+@spring-light-grey:   #f1f1f1;
+
+@botanic-white: #ffffff;
+
+@body-bg:                           @botanic-white;
+@text-color:                        @gray-light;
+@link-color:                        @botanic-dark-green;
+@link-hover-color:                  @botanic-dark-green;
+
+@navbar-default-link-color:         @spring-light-grey;
+@navbar-default-link-active-color:  @spring-light-grey;
+@navbar-default-link-hover-color:   @spring-light-grey;
+@navbar-default-link-hover-bg:      @botanic-orange;
+@navbar-default-toggle-icon-bar-bg: @spring-light-grey;
+@navbar-default-toggle-hover-bg:    transparent;
+@navbar-default-link-active-bg:     @botanic-orange;
+
+@border-radius-base:             4px;
+@border-radius-large:            8px;
+@border-radius-small:            0;
+
+@btn-default-color:              @spring-light-grey;
+@btn-default-bg:                 @botanic-dark-green;
+@btn-default-border:             @botanic-light-green;
+
+@icon-font-path: "../fonts/bootstrap/";
+
+@nav-tabs-active-link-hover-color:        @spring-light-grey;
+@nav-tabs-active-link-hover-bg:           @botanic-dark-green;
+@nav-tabs-active-link-hover-border-color: @botanic-dark-green;
+@nav-tabs-border-color:                   @botanic-dark-green;
+@table-border-color:                      @botanic-dark-green;
+
+
+
+.table > thead > tr > th {
+  background-color: lighten(@botanic-dark-green, 3%);
+  color: @spring-light-grey;
+}
+
+.table-filter {
+  background-color: @botanic-dark-green;
+  padding: 9px 12px;
+}
+
+.nav > li > a {
+  color: @spring-grey;
+}
+
+.btn-default {
+  border-width: 1px;
+  transition: border 0.15s;
+  -webkit-transition: border 0.15s;
+  -moz-transition: border 0.15s;
+  -o-transition: border 0.15s;
+  -ms-transition: border 0.15s;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active,
+  .open .dropdown-toggle& {
+    background-color: @botanic-dark-green;
+    border-color: @botanic-dark-green;
+  }
+}
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+code {
+  font-size: 80%;
+}
+
+.xd-container {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+h1 {
+  margin-bottom: 15px
+}
+
+.index-page--subtitle {
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0 0 30px;
+}
+
+.form-horizontal button.btn-inverse {
+  margin-left: 32px;
+}
+
+[ng-cloak].splash {
+  display: block !important;
+}
+[ng-cloak] {
+  display: none;
+}
+
+.splash {
+  background: @botanic-orange;
+  color: @botanic-dark-green;
+  display: none;
+}
+
+.error-page {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.error-page .error-title {
+  font-size: 24px;
+  line-height: 24px;
+  margin: 30px 0 0;
+}
+
+table td {
+  vertical-align: middle !important;
+}
+
+table td .progress {
+  margin-bottom: 0;
+}
+
+table td.action-column {
+  width: 1px;
+}
+
+.help-block {
+  color: lighten(@text-color, 0%); // lighten the text some for contrast
+}
+
+/* Google Maps */
+
+.angular-google-map-container {
+    width: 100%;
+    height: 300px;
+}
+
+/* fix for Twitter Bootstrap handling of responsive images */
+.angular-google-map img {
+    max-width: inherit;
+}
+
+.angular-google-map {
+  display: block;
+}
+
+#footer {
+  background-color: #8ea106;
+}
+
+@import "responsive.less";
+

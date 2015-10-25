@@ -36,7 +36,7 @@ public class AuthenticationControllerTests extends BaseControllerTests {
 
 	@Test
 	public void testAuthenticateSuccessfully() throws Exception {
-		mockMvc.perform(post("/authenticate")
+		mockMvc.perform(post("/api/authenticate")
 			.content("{ \"username\": \"admin\", \"password\": \"admin\" }".getBytes())
 			.contentType(MediaType.APPLICATION_JSON)
 			.accept(MediaType.APPLICATION_JSON))
@@ -49,7 +49,7 @@ public class AuthenticationControllerTests extends BaseControllerTests {
 
 	@Test
 	public void testAuthenticateUnSuccessfully() throws Exception {
-		mockMvc.perform(post("/authenticate")
+		mockMvc.perform(post("/api/authenticate")
 			.content("{ \"username\": \"wrong\", \"password\": \"password\" }".getBytes())
 			.contentType(MediaType.APPLICATION_JSON)
 			.accept(MediaType.APPLICATION_JSON))

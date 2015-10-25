@@ -36,7 +36,7 @@ import org.springframework.web.multipart.MultipartFile;
  *
  */
 @RestController
-@RequestMapping("/upload/plants/{plantId}")
+@RequestMapping("/api/plants/{plantId}/upload")
 public class UploadController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);

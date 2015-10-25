@@ -1,0 +1,112 @@
+<!doctype html>
+<html ng-app="botanicApp">
+  <head>
+    <meta charset="utf-8">
+    <title>BotanicNG</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <!-- build:css({.tmp/serve,src}) styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- run `gulp inject` to automatically populate bower styles dependencies -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css({.tmp/serve,src}) styles/app.css -->
+    <!-- inject:css -->
+    <!-- css files will be automatically insert here -->
+    <!-- endinject -->
+    <!-- endbuild -->
+  </head>
+  <body>
+    <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <nav class="navbar navbar-default" role="navigation" ng-cloak>
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" ui-sref="plants.viewAll"><span class="main">botanic</span> | <span class="secondary">NG</span></a>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <p ng-if="authenticationEnabled && user.isAuthenticated" class="navbar-text navbar-right">Signed in as
+            <strong>{{user.username}}</strong>
+          </p>
+          <p ng-if="authenticationEnabled && !user.isAuthenticated" class="navbar-text navbar-right">Not logged in</p>
+          <ul class="nav navbar-nav navbar-right">
+            <li ng-class="{ active: $state.includes('plants') }">
+              <a ui-sref="plants.viewAll">Plants</a>
+            </li>
+            <li ng-class="{ active: $state.includes('garden') }">
+              <a ui-sref="garden">Garden</a>
+            </li>
+            <li ng-class="{ active: $state.includes('about') }">
+              <a ui-sref="about">About</a>
+            </li>
+            <li class="dropdown"><a data-target="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li ng-if="user.isAuthenticated"><a ui-sref="logout">Logout</a></li>
+                <li ng-if="!user.isAuthenticated"><a ui-sref="login">Login</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="container-fluid">
+        <div class="container xd-container">
+          <div ui-view id="xd-content" class="tab-content"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted">&copy; <span>2014-2015</span> <a href="http://blog.hillert.com">Gunnar Hillert</a>, Licensed under ASL 2.0.</p>
+      </div>
+    </div>
+
+    <!-- build:js(src) scripts/vendor.js -->
+
+    <!-- begin angular-masonry -->
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/jquery-bridget/jquery.bridget.js"></script>
+    <script src="../bower_components/get-style-property/get-style-property.js"></script>
+    <script src="../bower_components/get-size/get-size.js"></script>
+    <script src="../bower_components/eventEmitter/EventEmitter.js"></script>
+    <script src="../bower_components/eventie/eventie.js"></script>
+    <script src="../bower_components/doc-ready/doc-ready.js"></script>
+    <script src="../bower_components/matches-selector/matches-selector.js"></script>
+    <script src="../bower_components/fizzy-ui-utils/utils.js"></script>
+    <script src="../bower_components/outlayer/item.js"></script>
+    <script src="../bower_components/outlayer/outlayer.js"></script>
+    <script src="../bower_components/masonry/masonry.js"></script>
+    <script src="../bower_components/imagesloaded/imagesloaded.js"></script>
+    <!-- end angular-masonry -->
+
+    <!-- bower:js -->
+    <!-- run `gulp inject` to automatically populate bower script dependencies -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp/serve,.tmp/partials,src}) scripts/app.js -->
+    <!-- inject:js -->
+    <!-- js files will be automatically insert here -->
+    <!-- endinject -->
+
+    <!-- inject:partials -->
+    <!-- angular templates will be automatically converted in js and inserted here -->
+    <!-- endinject -->
+    <!-- endbuild -->
+
+  </body>
+</html>
