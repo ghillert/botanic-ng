@@ -29,7 +29,6 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -43,7 +42,7 @@ import redis.embedded.util.JarUtil;
  * @author Rob Winch
  * @author Gunnar Hillert
  */
-//@Configuration
+@Configuration
 public class EmbeddedRedisConfiguration {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(EmbeddedRedisConfiguration.class);

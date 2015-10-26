@@ -17,6 +17,7 @@ package com.hillert.botanic.dao;
 
 import static org.junit.Assert.*;
 
+import com.hillert.botanic.IntegrationTestApplicationContextInitializer;
 import com.hillert.botanic.MainApp;
 import com.hillert.botanic.model.Image;
 import com.hillert.botanic.model.Location;
@@ -34,7 +35,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = MainApp.class)
+@SpringApplicationConfiguration(
+	initializers=IntegrationTestApplicationContextInitializer.class,
+	classes = MainApp.class)
 @WebIntegrationTest
 public class ImageRepositoryIntegrationTest {
 

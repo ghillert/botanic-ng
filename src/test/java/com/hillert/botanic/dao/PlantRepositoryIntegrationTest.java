@@ -25,6 +25,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.hillert.botanic.IntegrationTestApplicationContextInitializer;
 import com.hillert.botanic.MainApp;
 import com.hillert.botanic.model.Location;
 import com.hillert.botanic.model.Plant;
@@ -34,7 +35,9 @@ import com.hillert.botanic.model.Plant;
  * @since 1.0
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = MainApp.class)
+@SpringApplicationConfiguration(
+	initializers=IntegrationTestApplicationContextInitializer.class,
+	classes = MainApp.class)
 @WebIntegrationTest
 public class PlantRepositoryIntegrationTest {
 
