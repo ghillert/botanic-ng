@@ -5,12 +5,12 @@ Botanic NG
 
 [![Build Status](https://travis-ci.org/ghillert/botanic-ng.svg)](https://travis-ci.org/ghillert/botanic-ng)
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/ghillert/botanic-ng?branch=master&svg=true)](https://ci.appveyor.com/project/ghillert/botanic-ng)
+[![Dependency Status](https://gemnasium.com/ghillert/botanic-ng.svg)](https://gemnasium.com/ghillert/botanic-ng)
 
 ## Requirements
 
-* Please make sure you have **Redis** running. Redis is used to store the session information.
-* Currently, the project relies on a SNAPSHOT release of [Spring Session](https://github.com/spring-projects/spring-session).
-* You will need either **Java 8** or **Java 7**.
+* You will need **Java 8**.
+* [Redis](http://redis.io/) is used to store the session information. However, [embedded-redis](https://github.com/kstyrc/embedded-redis) is used, and thus you should not need to have Redis  running locally.
 
 ## How to Run
 
@@ -24,7 +24,7 @@ and visit [http://localhost:9900](http://localhost:9900). Please make sure that 
 
 ## How to Build
 
-You can also serve the UI using Grunt. As a prerequisite you need to have NPM and Bower installed. Go into the `ui` directory:
+You can also serve the UI using [Gulp](http://gulpjs.com/). As a prerequisite you need to have [NPM](https://www.npmjs.com/) and [Bower](http://bower.io/) installed. Go into the `ui` directory:
 
 	$ cd ui/
 
@@ -35,7 +35,7 @@ Next, install all dependencies needed (try with `sudo` and `-g` if this doesn't 
 
 Now you can start the UI using:
 
-	$ grunt serve
+	$ gulp serve
 
 No you can visit [http://localhost:9000](http://localhost:9000). Please make sure that the backend is running (`com.hillert.botanic.MainApp`)
 
