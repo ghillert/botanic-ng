@@ -70,16 +70,16 @@ public class EmbeddedRedisConfiguration {
 
 		public void afterPropertiesSet() throws Exception {
 
-			final File serverFile;
-
-			if (SystemUtils.IS_OS_WINDOWS) {
-				serverFile = JarUtil.extractExecutableFromJar("redis-2.8.17/redis-server.exe");
-			}
-			else {
-				serverFile = JarUtil.extractExecutableFromJar("redis-2.8.17/redis-server");
-			}
-			LOGGER.info("Using redis server at: {} with port {}", serverFile.getAbsolutePath(), port);
-			redisServer = new RedisServer(serverFile, port); //Protocol.DEFAULT_PORT
+//			final File serverFile;
+//
+//			if (SystemUtils.IS_OS_WINDOWS) {
+//				serverFile = JarUtil.extractExecutableFromJar("redis-2.8.17/redis-server.exe");
+//			}
+//			else {
+//				serverFile = JarUtil.extractExecutableFromJar("redis-2.8.17/redis-server");
+//			}
+			LOGGER.info("Using redis with port {}", port);
+			redisServer = new RedisServer(port); //Protocol.DEFAULT_PORT
 			redisServer.start();
 		}
 
