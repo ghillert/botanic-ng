@@ -70,18 +70,12 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>bower install</id>
+						<id>npm build</id>
 						<goals>
-							<goal>bower</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>gulp build</id>
-						<goals>
-							<goal>gulp</goal>
+							<goal>npm</goal>
 						</goals>
 						<configuration>
-							<arguments>build --no-color</arguments>
+							<arguments>run build</arguments>
 						</configuration>
 					</execution>
 				</executions>

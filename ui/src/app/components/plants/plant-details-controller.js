@@ -1,5 +1,7 @@
 'use strict';
 
+module.exports = function(ngModule) {
+
 /**
  * @ngdoc function
  * @name botanicApp.controller:PlantController
@@ -7,8 +9,7 @@
  * # PlantController
  * Controller of the botanicApp
  */
-angular.module('botanicApp')
-	.controller('PlantDetailsController', function ($scope, $state, $stateParams, $http, $log, appConfiguration, FileUploader, $rootScope) {
+ngModule.controller('PlantDetailsController', function ($scope, $state, $stateParams, $http, $log, appConfiguration, FileUploader, $rootScope) {
 		var plantId = $stateParams.plantId;
 		var plantPromise = $http.get(appConfiguration.botanicApiUrl + '/plants/' + plantId);
 		var plantImagesPromise = $http.get(appConfiguration.botanicApiUrl + '/plants/' + plantId + '/images');
@@ -120,3 +121,4 @@ angular.module('botanicApp')
 		};
 		console.info('uploader', uploader);
 	});
+};

@@ -1,44 +1,70 @@
-/// <reference path="../../.tmp/typings/tsd.d.ts" />
+'use strict';
 
+require('jquery');
+require('../styles/main.less');
+var angular = require('angular');
+require('angular-animate');
+require('angular-cookies');
+require('angular-resource');
+require('angular-ui-router');
+require('angular-sanitize');
+require('angular-touch');
+require('angular-file-upload');
+require('angular-simple-logger');
+require('angular-google-maps');
 
-/// <reference path="index.route.ts" />
+require('angular-masonry/node_modules/jquery-bridget');
+require('angular-masonry/node_modules/imagesloaded/node_modules/eventie');
+require('angular-masonry/node_modules/imagesloaded/node_modules/wolfy87-eventemitter');
+require('angular-masonry/node_modules/imagesloaded');
 
-/// <reference path="index.config.ts" />
-/// <reference path="index.run.ts" />
-/// <reference path="main/main.controller.ts" />
-/// <reference path="../app/components/navbar/navbar.directive.ts" />
-/// <reference path="../app/components/malarkey/malarkey.directive.ts" />
-/// <reference path="../app/components/webDevTec/webDevTec.service.ts" />
-/// <reference path="../app/components/githubContributor/githubContributor.service.ts" />
+require('angular-masonry/node_modules/masonry-layout/node_modules/fizzy-ui-utils/node_modules/desandro-matches-selector');
+require('angular-masonry/node_modules/masonry-layout/node_modules/fizzy-ui-utils/node_modules/doc-ready');
+require('angular-masonry/node_modules/masonry-layout/node_modules/fizzy-ui-utils');
+require('angular-masonry/node_modules/masonry-layout/node_modules/get-size/node_modules/desandro-get-style-property');
+require('angular-masonry/node_modules/masonry-layout/node_modules/get-size');
+require('angular-masonry/node_modules/masonry-layout/node_modules/outlayer');
+require('angular-masonry/node_modules/masonry-layout');
+require('angular-masonry');
+require('bootstrap');
 
-declare var malarkey: any;
-declare var toastr: Toastr;
-declare var moment: moment.MomentStatic;
+require('file?name=[name].[ext]!../index.html');
+require('file?name=[name].[ext]!../favicon.ico');
+require('file?name=[name].[ext]!../apple-touch-icon.png');
 
-module botanicApp {
-  'use strict';
+var ngModule = module.exports = angular
+    .module('botanicApp', [
+      'ngAnimate',
+      'ngCookies',
+      'ngResource',
+      'ui.router',
+      'ngSanitize',
+      'ngTouch',
+      'uiGmapgoogle-maps',
+      'angularFileUpload',
+      'wu.masonry'
+    ]);
 
-  angular.module('botanicApp',
-      ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize',
-       'ngResource', 'ui.router', 'angularFileUpload', 'wu.masonry'])
-    .constant('malarkey', malarkey)
-    .constant('toastr', toastr)
-    .constant('moment', moment)
-    .constant('appConfiguration', {
+require('./components/about')(ngModule);
+require('./components/garden')(ngModule);
+require('./components/login')(ngModule);
+require('./components/plants')(ngModule);
+
+require('./index.route')(ngModule);
+
+if (ON_TEST) {
+  require('angular-mocks/angular-mocks');
+}
+
+    ngModule.constant('appConfiguration', {
       //e.g. http://myserver:9000/rest
       botanicApiUrl: window.location.protocol + '//' + window.location.host + '/api',
       xAuthTokenHeaderName: 'x-auth-token'
     })
-    .config(Config)
-
-    .config(RouterConfig)
-
-    .run(RunBlock)
-    .service('githubContributor', GithubContributor)
-    .service('webDevTec', WebDevTecService)
-    .controller('MainController', MainController)
-    .directive('acmeNavbar', acmeNavbar)
-    .directive('acmeMalarkey', acmeMalarkey)
+    .run(function ($rootScope, $state, $stateParams) {
+      $rootScope.$state = $state;
+      $rootScope.$stateParams = $stateParams;
+    })
     .config(function ($httpProvider) {
       /* Intercept http errors */
       var interceptor = function ($rootScope, $q, $location) {
@@ -123,5 +149,3 @@ module botanicApp {
 //		}
 
     });
-
-}

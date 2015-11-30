@@ -1,5 +1,7 @@
 'use strict';
 
+module.exports = function(ngModule) {
+
 /**
  * @ngdoc function
  * @name botanicApp.controller:AboutController
@@ -7,8 +9,7 @@
  * # AboutController
  * Controller of the botanicApp
  */
-angular.module('botanicApp')
-	.factory('LoginService', function($resource) {
+ngModule.factory('LoginService', function($resource) {
 		return $resource(':action', {},
 			{
 				authenticate: {
@@ -19,3 +20,4 @@ angular.module('botanicApp')
 			}
 		);
 });
+};

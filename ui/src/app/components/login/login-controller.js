@@ -1,13 +1,15 @@
 'use strict';
 
+module.exports = function(ngModule) {
+
+	require('./login-service')(ngModule);
 /**
  * @ngdoc function
  * @name botanicApp.controller: LoginController
  * @description
  * Responsible for authenticating users. Also provides logout functionality.
  */
-angular.module('botanicApp')
-	.controller('LoginController', function ($log, $scope, $rootScope, $state, $http, $cookieStore, LoginService, appConfiguration) {
+	ngModule.controller('LoginController', function ($log, $scope, $rootScope, $state, $http, $cookieStore, LoginService, appConfiguration) {
 		$scope.login = function() {
 			$log.info('Logging in...', $scope.user);
 			LoginService.authenticate($scope.user, function(user) {
@@ -35,3 +37,5 @@ angular.module('botanicApp')
 		$cookieStore.remove('user');
 		$state.go('plants.viewAll');
 	});
+};
+
