@@ -20,7 +20,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.hillert.botanic.MainApp;
@@ -32,12 +32,12 @@ import com.hillert.botanic.model.Plant;
  * @author Gunnar Hillert
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = MainApp.class)
+@SpringBootTest(classes = MainApp.class)
 public class ImageRepositoryIntegrationTest {
 
 	@Autowired PlantRepository plantRepository;
 	@Autowired ImageRepository imageRepository;
-	
+
 	@Test
 	public void saveImage() {
 
@@ -50,14 +50,14 @@ public class ImageRepositoryIntegrationTest {
 		final Plant savedPlant = plantRepository.save(plant);
 
 		//assertThat(repository.findOne(savedPlant .id), is(plant));
-		
+
 		final Image image = new Image();
 		image.setImage("imagedata".getBytes());
 		image.setName("Test Image");
 		image.setPlant(savedPlant);
-		
+
 		final Image savedImage = imageRepository.save(image);
-		
+
 		assertNotNull(savedImage);
 	}
 }

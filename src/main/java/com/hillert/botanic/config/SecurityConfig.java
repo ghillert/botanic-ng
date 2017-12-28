@@ -15,7 +15,6 @@
  */
 package com.hillert.botanic.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -25,14 +24,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.access.channel.ChannelProcessingFilter;
-import org.springframework.session.ExpiringSession;
-import org.springframework.session.SessionRepository;
-import org.springframework.session.web.http.HeaderHttpSessionStrategy;
-import org.springframework.session.web.http.SessionRepositoryFilter;
 
 import com.hillert.botanic.service.DefaultUserDetailsService;
 
@@ -42,29 +34,21 @@ import com.hillert.botanic.service.DefaultUserDetailsService;
  * @since 1.0
  *
  */
-@EnableWebMvcSecurity
-@EnableWebSecurity(debug = false)
+@EnableWebSecurity
 @Configuration
 @Order
 class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private SessionRepository<? extends ExpiringSession> sessionRepository;
-
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		final SessionRepositoryFilter sessionRepositoryFilter = new SessionRepositoryFilter(sessionRepository);
-		sessionRepositoryFilter.setHttpSessionStrategy(new HeaderHttpSessionStrategy());
-
 		http
-		.addFilterBefore(sessionRepositoryFilter, ChannelProcessingFilter.class)
+		//.addFilterBefore(sessionRepositoryFilter, ChannelProcessingFilter.class)
 		.csrf().disable();
-
-		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
+		//http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/info/**").hasRole(DefaultUserDetailsService.ROLE_USER);
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/plants/**").hasRole(DefaultUserDetailsService.ROLE_ADMIN);
-
+		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/plants/**").hasRole(DefaultUserDetailsService.ROLE_ADMIN);
 	}
 
 	@Override

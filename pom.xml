@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.1.6.RELEASE</version>
+		<version>1.5.9.RELEASE</version>
 	</parent>
 
 	<groupId>com.hillert.botanic</groupId>
@@ -16,7 +16,7 @@
 	<name>botanic-ng</name>
 
 	<properties>
-		<spring-data-rest.version>2.2.0 RC1</spring-data-rest.version>
+		<!-- <spring-data-rest.version>2.2.0.RC1</spring-data-rest.version> -->
 	</properties>
 
 	<build>
@@ -30,8 +30,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -41,7 +41,7 @@
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
-				<version>0.0.15</version>
+				<version>1.6</version>
 				<configuration>
 					<workingDirectory>ui</workingDirectory>
 				</configuration>
@@ -52,8 +52,7 @@
 							<goal>install-node-and-npm</goal>
 						</goals>
 						<configuration>
-							<nodeVersion>v0.10.30</nodeVersion>
-							<npmVersion>1.4.12</npmVersion>
+							<nodeVersion>v8.7.0</nodeVersion>
 						</configuration>
 					</execution>
 					<execution>
@@ -66,15 +65,52 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>grunt build</id>
+						<id>npm build</id>
 						<goals>
-							<goal>grunt</goal>
+							<goal>npm</goal>
 						</goals>
 						<configuration>
-							<arguments>build --no-color</arguments>
+							<arguments>run mavenbuild</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npm doc</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>run doc</arguments>
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+				<filesets>
+						<fileset>
+							<directory>ui/node_modules</directory>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+						<fileset>
+							<directory>ui/dist</directory>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+						<fileset>
+							<directory>src/main/resources/public</directory>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+						<fileset>
+							 <directory>ui/node</directory>
+							 <followSymlinks>false</followSymlinks>
+						</fileset>
+						<fileset>
+							 <directory>ui/node_modules</directory>
+							  <followSymlinks>false</followSymlinks>
+						</fileset>
+				</filesets>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -140,20 +176,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.session</groupId>
-			<artifactId>spring-session</artifactId>
-			<version>1.0.0.BUILD-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-redis</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
-		</dependency>
+<dependency>
+    <groupId>org.springframework.session</groupId>
+    <artifactId>spring-session</artifactId>
+</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-pool2</artifactId>

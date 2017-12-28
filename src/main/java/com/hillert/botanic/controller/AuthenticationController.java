@@ -15,13 +15,14 @@
  */
 package com.hillert.botanic.controller;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,6 +34,7 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hillert.botanic.controller.dto.AuthenticationRequest;
@@ -58,7 +60,28 @@ public class AuthenticationController {
 		this.userDetailsService = userDetailsService;
 	}
 
-	@RequestMapping(value = "/authenticate", method = { RequestMethod.POST })
+	@RequestMapping("/api/logout")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void logout(HttpSession session) {
+		session.invalidate();
+	}
+
+	@RequestMapping(value = "/api/info", method = { RequestMethod.GET })
+	public AuthenticationToken info() {
+
+		final String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		final UserDetails details = this.userDetailsService.loadUserByUsername(username);
+
+		final List<String> roles = new ArrayList<>();
+
+		for (GrantedAuthority authority : details.getAuthorities()) {
+			roles.add(authority.toString());
+		}
+
+		return new AuthenticationToken(details.getUsername(), roles);
+	}
+
+	@RequestMapping(value = "/api/authenticate", method = { RequestMethod.POST })
 	public AuthenticationToken authorize(
 			@RequestBody AuthenticationRequest authenticationRequest,
 			HttpServletRequest request) {
@@ -72,12 +95,12 @@ public class AuthenticationController {
 
 		final UserDetails details = this.userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
-		final Map<String, Boolean> roles = new HashMap<String, Boolean>();
+		final List<String> roles = new ArrayList<>();
 
 		for (GrantedAuthority authority : details.getAuthorities()) {
-			roles.put(authority.toString(), Boolean.TRUE);
+			roles.add(authority.toString());
 		}
 
-		return new AuthenticationToken(details.getUsername(), roles, session.getId());
+		return new AuthenticationToken(details.getUsername(), roles);
 	}
 }

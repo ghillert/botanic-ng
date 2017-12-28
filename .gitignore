@@ -14,3 +14,4 @@ ui/node
 ui/bower_components
 ui/node_modules
 *.log
+ui/package-lock.json

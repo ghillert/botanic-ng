@@ -1,11 +1,21 @@
 spring:
   application:
     name: botanic-ng
-
+  http:
+    multipart:
+      max-file-size: 8192KB
+      max-request-size: 8192KB
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
 server:
   port: 9000
 
 logging:
   level:
-    org.springframework: INFO
+    org.springframework.security: DEBUG
     org.springframework.web: INFO
+---
+spring:
+  profiles: test
+  autoconfigure.exclude: org.springframework.boot.actuate.autoconfigure.CrshAutoConfiguration

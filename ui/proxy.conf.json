@@ -1,0 +1,22 @@
+{
+    "/authenticate" : {
+        "target": "http://localhost:9900",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/api/**" : {
+        "target": "http://localhost:9900",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/upload/**" : {
+        "target": "http://localhost:9900",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/websocket": {
+        "target": "http://localhost:9900",
+        "ws": true,
+        "logLevel": "debug"
+    }
+}

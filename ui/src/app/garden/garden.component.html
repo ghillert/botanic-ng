@@ -1,0 +1,8 @@
+<h1>Garden Pictures</h1>
+
+<ngx-masonry [useImagesLoaded]="true">
+	<ngx-masonry-item class="masonry-item" *ngFor="let plantImage of images">
+			<img src="data:image/PNG;base64,{{plantImage.image}}" width="330px"
+			style="margin: 5px;" title="{{plantImage.name}}" class="plant"/>
+	</ngx-masonry-item>
+</ngx-masonry>

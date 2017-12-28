@@ -15,6 +15,7 @@
  */
 package com.hillert.botanic.controller.dto;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -28,21 +29,19 @@ public class AuthenticationToken {
 
 	private String username;
 	private Map<String, Boolean> roles;
-	private String token;
+	private String[] roles2;
 
 	public AuthenticationToken() {
 		super();
 	}
 
-	public AuthenticationToken(String username, Map<String, Boolean> roles, String token) {
-
+	public AuthenticationToken(String username, List<String> roles) {
 		Map<String, Boolean> mapOfRoles = new ConcurrentHashMap<String, Boolean>();
-		for (String k : roles.keySet()) {
-			mapOfRoles.put(k, roles.get(k));
+		for (String k : roles) {
+			mapOfRoles.put(k, true);
 		}
-
 		this.roles = mapOfRoles;
-		this.token = token;
+		this.roles2 = roles.toArray(new String[roles.size()]);
 		this.username = username;
 	}
 
@@ -50,8 +49,8 @@ public class AuthenticationToken {
 		return this.roles;
 	}
 
-	public String getToken() {
-		return this.token;
+	public String[] getRoles2() {
+		return this.roles2;
 	}
 
 	/**
