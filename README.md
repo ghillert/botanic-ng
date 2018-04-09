@@ -1,15 +1,13 @@
 Botanic NG
 ==========
 
-**Angular JS Sample Application**
+**Angular 5 Sample Application**
 
 [![Build Status](https://travis-ci.org/ghillert/botanic-ng.svg)](https://travis-ci.org/ghillert/botanic-ng)
 
 ## Requirements
 
-* Please make sure you have **Redis** running. Redis is used to store the session information.
-* Currently, the project relies on a SNAPSHOT release of [Spring Session](https://github.com/spring-projects/spring-session).
-* You will need either **Java 8** or **Java 7**.
+* You will need **Java 8** and **Maven**.
 
 ## How to Run
 
@@ -23,20 +21,19 @@ and visit [http://localhost:9900](http://localhost:9900). Please make sure that 
 
 ## How to Build
 
-You can also serve the UI using Grunt. As a prerequisite you need to have NPM and Bower installed. Go into the `ui` directory:
+You can also serve the UI using Angular CLI. As a prerequisite you need to have NPM installed. Go into the `ui` directory:
 
 	$ cd ui/
 
-Next, install all dependencies needed (try with `sudo` and `-g` if this doesn't work):
+Next, install all dependencies needed:
 
 	$ npm install
-	$ bower install
 
 Now you can start the UI using:
 
-	$ grunt serve
+	$ npm start
 
-No you can visit [http://localhost:9000](http://localhost:9000). Please make sure that the backend is running (`com.hillert.botanic.MainApp`)
+No you can visit [http://localhost:4200](http://localhost:4200). Please make sure that the backend is running (`com.hillert.botanic.MainApp`)
 
 ## Resources
 
