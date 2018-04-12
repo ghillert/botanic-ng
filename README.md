@@ -7,11 +7,11 @@ Botanic NG
 
 ## Requirements
 
-* You will need **Java 8** and **Maven**.
+* You will need **Java 8** and **`Maven**.
 
 ## How to Run
 
-	$ mvn clean spring-boot:run
+	$ mvn clean spring-boot:run -Pui
 
 The easiest way to run solely the UI is to use Spring Boot.
 

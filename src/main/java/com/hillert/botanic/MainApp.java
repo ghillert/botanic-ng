@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,17 +15,12 @@
  */
 package com.hillert.botanic;
 
-import org.apache.catalina.connector.Connector;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
-import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
-import org.springframework.boot.context.embedded.tomcat.TomcatConnectorCustomizer;
-import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
@@ -44,8 +39,7 @@ import com.hillert.botanic.support.ISO8601DateFormatWithMilliSeconds;
  * @author Gunnar  Hillert
  * @since 1.0
  */
-@EnableAutoConfiguration
-@ComponentScan
+@SpringBootApplication
 public class MainApp {
 
 	public static final String GZIP_COMPRESSION_MIME_TYPES =
@@ -87,39 +81,4 @@ public class MainApp {
 		};
 	}
 
-//	@Bean
-//	public org.springframework.http.converter.json.MappingJackson2HttpMessageConverter MappingJackson2HttpMessageConverter() {
-//		org.springframework.http.converter.json.MappingJackson2HttpMessageConverter converter = new org.springframework.http.converter.json.MappingJackson2HttpMessageConverter();
-//		converter.setObjectMapper(objectMapper());
-//		return converter;
-//	}
-
-	/**
-	 * Customize the embedded Tomcat container to enable GZIP compression for the
-	 * mime-types defined in {@link #GZIP_COMPRESSION_MIME_TYPES}.
-	 *
-	 * @return EmbeddedServletContainerCustomizer instance
-	 */
-	@Bean
-	public EmbeddedServletContainerCustomizer servletContainerCustomizer() {
-		return new EmbeddedServletContainerCustomizer() {
-			@Override
-			public void customize(ConfigurableEmbeddedServletContainer servletContainer) {
-				((TomcatEmbeddedServletContainerFactory) servletContainer).addConnectorCustomizers(
-					new TomcatConnectorCustomizer() {
-						@Override
-						public void customize(Connector connector) {
-//							@SuppressWarnings("rawtypes")
-//							AbstractHttp11Protocol httpProtocol = (AbstractHttp11Protocol) connector.getProtocolHandler();
-//							httpProtocol.setCompression("on");
-//							httpProtocol.setCompressionMinSize(256);
-//							String mimeTypes = httpProtocol.getCompressableMimeTypes();
-//							String mimeTypesWithJson = mimeTypes + "," + GZIP_COMPRESSION_MIME_TYPES;
-//							httpProtocol.setCompressableMimeTypes(mimeTypesWithJson);
-						}
-					}
-				);
-			}
-		};
-	}
 }

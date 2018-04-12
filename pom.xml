@@ -5,12 +5,12 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.9.RELEASE</version>
+		<version>2.0.1.RELEASE</version>
 	</parent>
 
 	<groupId>com.hillert.botanic</groupId>
 	<artifactId>botanic-ng</artifactId>
-	<version>1.0.0.BUILD-SNAPSHOT</version>
+	<version>2.0.0.BUILD-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>botanic-ng</name>
@@ -38,80 +38,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-				<groupId>com.github.eirslett</groupId>
-				<artifactId>frontend-maven-plugin</artifactId>
-				<version>1.6</version>
-				<configuration>
-					<workingDirectory>ui</workingDirectory>
-				</configuration>
-				<executions>
-					<execution>
-						<id>install node and npm</id>
-						<goals>
-							<goal>install-node-and-npm</goal>
-						</goals>
-						<configuration>
-							<nodeVersion>v8.7.0</nodeVersion>
-						</configuration>
-					</execution>
-					<execution>
-						<id>npm install</id>
-						<goals>
-							<goal>npm</goal>
-						</goals>
-						<configuration>
-							<arguments>install</arguments>
-						</configuration>
-					</execution>
-					<execution>
-						<id>npm build</id>
-						<goals>
-							<goal>npm</goal>
-						</goals>
-						<configuration>
-							<arguments>run mavenbuild</arguments>
-						</configuration>
-					</execution>
-					<execution>
-						<id>npm doc</id>
-						<goals>
-							<goal>npm</goal>
-						</goals>
-						<configuration>
-							<arguments>run doc</arguments>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-clean-plugin</artifactId>
-				<version>3.0.0</version>
-				<configuration>
-				<filesets>
-						<fileset>
-							<directory>ui/node_modules</directory>
-							<followSymlinks>false</followSymlinks>
-						</fileset>
-						<fileset>
-							<directory>ui/dist</directory>
-							<followSymlinks>false</followSymlinks>
-						</fileset>
-						<fileset>
-							<directory>src/main/resources/public</directory>
-							<followSymlinks>false</followSymlinks>
-						</fileset>
-						<fileset>
-							 <directory>ui/node</directory>
-							 <followSymlinks>false</followSymlinks>
-						</fileset>
-						<fileset>
-							 <directory>ui/node_modules</directory>
-							  <followSymlinks>false</followSymlinks>
-						</fileset>
-				</filesets>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 
@@ -119,10 +45,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -176,17 +98,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
-<dependency>
-    <groupId>org.springframework.session</groupId>
-    <artifactId>spring-session</artifactId>
-</dependency>
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-pool2</artifactId>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-jdbc</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-remote-shell</artifactId>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.0</version>
 		</dependency>
 	</dependencies>
 
@@ -201,4 +120,88 @@
 			<url>http://clojars.org/repo</url>
 		</repository>
 	</repositories>
+
+	<profiles>
+		<profile>
+			<id>ui</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.github.eirslett</groupId>
+						<artifactId>frontend-maven-plugin</artifactId>
+						<version>1.6</version>
+						<configuration>
+							<workingDirectory>ui</workingDirectory>
+						</configuration>
+						<executions>
+							<execution>
+								<id>install node and npm</id>
+								<goals>
+									<goal>install-node-and-npm</goal>
+								</goals>
+								<configuration>
+									<nodeVersion>v8.7.0</nodeVersion>
+								</configuration>
+							</execution>
+							<execution>
+								<id>npm install</id>
+								<goals>
+									<goal>npm</goal>
+								</goals>
+								<configuration>
+									<arguments>install</arguments>
+								</configuration>
+							</execution>
+							<execution>
+								<id>npm build</id>
+								<goals>
+									<goal>npm</goal>
+								</goals>
+								<configuration>
+									<arguments>run mavenbuild</arguments>
+								</configuration>
+							</execution>
+							<execution>
+								<id>npm doc</id>
+								<goals>
+									<goal>npm</goal>
+								</goals>
+								<configuration>
+									<arguments>run doc</arguments>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-clean-plugin</artifactId>
+						<version>3.0.0</version>
+						<configuration>
+							<filesets>
+								<fileset>
+									<directory>ui/node_modules</directory>
+									<followSymlinks>false</followSymlinks>
+								</fileset>
+								<fileset>
+									<directory>ui/dist</directory>
+									<followSymlinks>false</followSymlinks>
+								</fileset>
+								<fileset>
+									<directory>src/main/resources/public</directory>
+									<followSymlinks>false</followSymlinks>
+								</fileset>
+								<fileset>
+									 <directory>ui/node</directory>
+									 <followSymlinks>false</followSymlinks>
+								</fileset>
+								<fileset>
+									<directory>ui/node_modules</directory>
+									<followSymlinks>false</followSymlinks>
+								</fileset>
+							</filesets>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

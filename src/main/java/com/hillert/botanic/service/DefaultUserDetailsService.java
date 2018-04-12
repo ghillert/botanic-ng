@@ -104,7 +104,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
 		}
 	}
 
-	List<UserDetails> details = Arrays.<UserDetails>asList(new SimpleUserDetails("user", "user", ROLE_USER), new SimpleUserDetails("admin", "admin", ROLE_USER, ROLE_ADMIN));
+	List<UserDetails> details = Arrays.<UserDetails>asList(new SimpleUserDetails("user", "{noop}user", ROLE_USER), new SimpleUserDetails("admin", "{noop}admin", ROLE_USER, ROLE_ADMIN));
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

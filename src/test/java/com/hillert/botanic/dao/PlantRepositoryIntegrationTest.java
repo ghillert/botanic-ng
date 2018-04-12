@@ -49,6 +49,6 @@ public class PlantRepositoryIntegrationTest {
 
 		final Plant savedPlant = repository.save(plant);
 
-		assertThat(repository.findOne(savedPlant.getId()).getId(), is(plant.getId()));
+		assertThat(repository.findById(savedPlant.getId()).get().getId(), is(plant.getId()));
 	}
 }

@@ -79,7 +79,7 @@ public class UploadController {
 				throw new IllegalStateException("Error uploading file.", e);
 			}
 
-			final Plant plant = plantRepository.findOne(plantId);
+			final Plant plant = plantRepository.findById(plantId).orElse(null);
 
 			if (plant == null) {
 				throw new IllegalStateException(String.format("Plant with id '%s' not found.", plantId));

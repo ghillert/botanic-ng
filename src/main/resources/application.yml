@@ -1,7 +1,10 @@
 spring:
   application:
     name: botanic-ng
-  http:
+  jpa:
+    hibernate:
+      ddl-auto: create
+  servlet:
     multipart:
       max-file-size: 8192KB
       max-request-size: 8192KB

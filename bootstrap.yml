@@ -1,6 +1,12 @@
 spring:
   application:
     name: botanic-ng
+  session:
+    store-type: jdbc
+server:
+  compression:
+    enabled: true
+    min-response-size: 1024
 ---
 spring:
   profiles: cloud

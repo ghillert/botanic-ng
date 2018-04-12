@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 the original author or authors.
+ * Copyright 2014-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,10 @@ package com.hillert.botanic.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.session.ExpiringSession;
-import org.springframework.session.MapSessionRepository;
-import org.springframework.session.SessionRepository;
-import org.springframework.session.config.annotation.web.http.EnableSpringHttpSession;
+import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
 import org.springframework.session.web.context.AbstractHttpSessionApplicationInitializer;
-import org.springframework.session.web.http.HeaderHttpSessionStrategy;
-import org.springframework.session.web.http.HttpSessionStrategy;
+import org.springframework.session.web.http.HeaderHttpSessionIdResolver;
+import org.springframework.session.web.http.HttpSessionIdResolver;
 
 /**
  *
@@ -32,16 +29,12 @@ import org.springframework.session.web.http.HttpSessionStrategy;
  *
  */
 @Configuration
-@EnableSpringHttpSession
+@EnableJdbcHttpSession
 public class SessionConfig extends AbstractHttpSessionApplicationInitializer {
-	@Bean
-	SessionRepository<ExpiringSession> inmemorySessionRepository() {
-		return new MapSessionRepository();
-	}
 
 	@Bean
-	HttpSessionStrategy httpSessionStrategy() {
-		return new HeaderHttpSessionStrategy();
+	public HttpSessionIdResolver httpSessionIdResolver() {
+		return HeaderHttpSessionIdResolver.xAuthToken();
 	}
 }
 
